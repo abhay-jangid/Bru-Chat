@@ -1,4 +1,4 @@
-export const updatePageTitle = (title: string = 'Page Assist - A Web UI for Local AI Models') => {
+export const updatePageTitle = (title: string = 'Bru Chat - Free, local-first AI web companion') => {
   const pageTitle = document.querySelector("title")
   if (pageTitle) {
     pageTitle.textContent = title

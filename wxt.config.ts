@@ -54,9 +54,12 @@ export default defineConfig({
     version: "1.5.87",
     name:
       process.env.TARGET === "firefox"
-        ? "Page Assist - A Web UI for Local AI Models"
+        ? "Bru Chat"
         : "__MSG_extName__",
-    description: "__MSG_extDescription__",
+    description:
+      process.env.TARGET === "firefox"
+        ? "Free, local-first AI web companion"
+        : "__MSG_extDescription__",
     default_locale: "en",
     action: {},
     author: "n4ze3m",

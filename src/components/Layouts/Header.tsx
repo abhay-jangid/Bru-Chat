@@ -15,6 +15,7 @@ import { useLocation, NavLink } from "react-router-dom"
 import { SelectedKnowledge } from "../Option/Knowledge/SelectedKnowledge"
 import { ModelSelect } from "../Common/ModelSelect"
 import { PromptSelect } from "../Common/PromptSelect"
+import { ExecutionModeToggle } from "../Common/ExecutionModeToggle"
 import { useQuery } from "@tanstack/react-query"
 import { fetchChatModels } from "~/services/ollama"
 import { useMessageOption } from "~/hooks/useMessageOption"
@@ -213,6 +214,7 @@ export const Header: React.FC<Props> = ({
           />
         </div>
         <SelectedKnowledge />
+        <ExecutionModeToggle />
       </div>
       <div className="flex flex-1 justify-end px-4">
         <div className="ml-4 flex items-center md:ml-6">

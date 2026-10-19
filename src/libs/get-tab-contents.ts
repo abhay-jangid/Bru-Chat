@@ -84,7 +84,7 @@ export const getTabContents = async (documents: ChatDocuments) => {
             } else if (content.isPDF) {
                 extractedContent = await processPDFFromURL(doc.url)
             } else {
-                extractedContent = defaultExtractContent(content.html)
+                extractedContent = defaultExtractContent(content.html, doc.url)
             }
 
             // Calculate available space for this document's content

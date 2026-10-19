@@ -33,6 +33,8 @@ yarn-error.log*
 out/
 build/
 dist/
+release-assets/
+*.zip
 
 # plasmo - https://www.plasmo.com
 .plasmo

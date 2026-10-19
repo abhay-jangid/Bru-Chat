@@ -1,232 +1,140 @@
-<p align="center">
-    <h1 align="center">Page Assist</h1>
-</p>
-
+# Bru Chat 🐾
 
 <p align="center">
-<a href="https://discord.gg/bu54382uBd" aria-label="Join dialoqbase #welcome"><img src="https://img.shields.io/badge/discord-join%20chat-blue.svg" alt="Join dialoqbase #welcome"></a>  <a href="https://twitter.com/page_assist" aria-label="Follow @page_assist on Twitter"><img src="https://img.shields.io/twitter/follow/page_assist?style=social" alt="Follow @page_assist on Twitter"></a> 
+  <h1 align="center">Bru Chat</h1>
+  <p align="center"><b>Free, Local-First AI Web Companion</b></p>
 </p>
 
 <p align="center">
-    <a href="https://docs.pageassist.xyz">
-        Documentation
-    </a>
-
+  <a href="PRIVACY.md"><img src="https://img.shields.io/badge/Privacy-100%25%20Local-success?style=for-the-badge&logo=shield" alt="100% Local Privacy" /></a>
+  <a href="PRIVACY.md"><img src="https://img.shields.io/badge/Telemetry-Zero%20Tracking-blue?style=for-the-badge" alt="Zero Telemetry" /></a>
+  <a href="LICENCE"><img src="https://img.shields.io/badge/License-GPL--3.0-orange?style=for-the-badge" alt="GPL-3.0 License" /></a>
+  <img src="https://img.shields.io/badge/Cost-100%25%20Free%20%26%20Open-green?style=for-the-badge" alt="100% Free" />
 </p>
 
+---
 
-Page Assist is an open-source browser extension that provides a sidebar and web UI for your local AI model. It allows you to interact with your model from any webpage.
+## 🚀 Mission & Upstream Attribution
 
-## Installation
+**Bru Chat** is an elite, 100% free, and open-source browser companion for local AI inference. It enables web browsing, page summarization, contextual querying, and sidepanel chat powered entirely by local open weights — with **zero subscriptions, zero cloud APIs, and zero tracking**.
 
-Page Assist supports Chromium-based browsers like Chrome, Brave, and Edge, as well as Firefox.
+### 📜 Attribution & GPL-3.0 Compliance
+Bru Chat is forked and heavily upgraded from the remarkable [Page Assist](https://github.com/n4ze3m/page-assist) project created by [Muhammed Nazeem](https://github.com/n4ze3m). 
+In compliance with the **GNU General Public License v3.0 (GPL-3.0)**, all source code remains open, freely redistributable, and dedicated to the open-source local AI community. Original copyright belongs to Muhammed Nazeem and contributors; modifications and new features are copyright the Bru Chat contributors.
 
-[![Chrome Web Store](https://pub-35424b4473484be483c0afa08c69e7da.r2.dev/UV4C4ybeBTsZt43U4xis.png)](https://chromewebstore.google.com/detail/page-assist/jfgfiigpkhlkbnfnbobbkinehhfdhndo)
-[![Firefox Add-on](https://pub-35424b4473484be483c0afa08c69e7da.r2.dev/get-the-addon.png)](https://addons.mozilla.org/firefox/addon/page-assist/)
-[![Edge Add-on](https://pub-35424b4473484be483c0afa08c69e7da.r2.dev/edge-addon.png)](https://microsoftedge.microsoft.com/addons/detail/page-assist-a-web-ui-fo/ogkogooadflifpmmidmhjedogicnhooa)
+---
 
-Checkout the Demo (v1.0.0):
+## ⚡ Key Upgrades in Bru Chat
 
-<div align="center">
+- 🧠 **Token-Saving Page Extractor**: Advanced Readability parsing and clean Markdown extraction that purges ads, sidebars, cookie banners, and scripts before context reaches your LLM — cutting token usage by up to 70%.
+- 🎯 **Curated Open-Weight Model Presets**:
+  - **Qwen 2.5 (3B / 7B / 14B)**: Precision instruction adherence and structured markdown outputs.
+  - **Llama 3.2 (1B / 3B)**: Ultra-compact, low-latency prompts tailored for resource-constrained laptops and edge devices.
+  - **DeepSeek-R1 Distill Models**: Native reasoning `<think>` tag visualization and methodical step-by-step chain of thought.
+- ⚡ **"Fast Mode" vs. "Deep Analysis" Quick Toggle**: Instantly toggle between rapid low-temperature summaries and comprehensive multi-step reasoning from the top header bar.
+- 🛡️ **Absolute Privacy Guarantee**: No analytics, no telemetry, no tracking, and no external calls. Your web pages and chat prompts never leave your device.
 
-[![Page Assist Demo](https://img.youtube.com/vi/8VTjlLGXA4s/0.jpg)](https://www.youtube.com/watch?v=8VTjlLGXA4s)
+---
 
-</div>
+## 🏁 Quickstart Guide
 
-## Sponsors
+Bru Chat connects seamlessly to local inference engines running on your machine:
 
-<table>
-  <tr>
-    <td align="center" width="200">
-      <a href="https://aihubmix.com/?aff=N9Wa">
-        <picture>
-          <source media="(prefers-color-scheme: dark)" srcset="assets/sponsors/aihubmix-dark.svg" />
-          <img src="assets/sponsors/aihubmix-light.svg" alt="AIHubMix" width="180" />
-        </picture>
-      </a>
-    </td>
-    <td>
-      <a href="https://aihubmix.com/?aff=N9Wa"><b>AIHubMix</b></a> is a compliant LLM API aggregation platform that has operated reliably for three years. It partners with model developers and cloud inference providers to offer more than 800 models through a single API, with real-time monitoring for production reliability.
-    </td>
-  </tr>
-</table>
+### 1. Ollama (`localhost:11434`)
 
-Interested in sponsoring Page Assist? Reach out at [me@n4ze3m.com](mailto:me@n4ze3m.com).
+1. Install [Ollama](https://ollama.com/) on Windows, macOS, or Linux.
+2. Pull your favorite open weights:
+   ```bash
+   # Balanced everyday assistant
+   ollama run qwen2.5:7b
 
-## Features
+   # Ultra-lightweight & lightning fast
+   ollama run llama3.2:3b
 
-- **Sidebar**: A sidebar that can be opened on any webpage. It allows you to interact with your model and see the results.
+   # Deep reasoning model
+   ollama run deepseek-r1:7b
+   ```
+3. Configure CORS access for browser extensions:
+   - **Windows (PowerShell)**:
+     ```powershell
+     [System.Environment]::SetEnvironmentVariable("OLLAMA_ORIGINS", "*", "User")
+     ```
+     *Restart Ollama from the system tray.*
+   - **Linux / macOS**:
+     ```bash
+     export OLLAMA_ORIGINS="*"
+     ollama serve
+     ```
+4. Open Bru Chat: It will automatically detect Ollama at `http://localhost:11434`!
 
-- **Web UI**: A web UI that allows you to interact with your model like a ChatGPT Website.
+---
 
-- **Chat With Webpage**: You can chat with the webpage and ask questions about the content.
+### 2. LM Studio (`localhost:1234`)
 
-want more features? Create an issue and let me know.
+1. Download [LM Studio](https://lmstudio.ai/).
+2. Download any GGUF model (e.g., `Qwen2.5-7B-Instruct-GGUF`, `Llama-3.2-3B-Instruct-GGUF`, or `DeepSeek-R1-Distill-Qwen-7B-GGUF`).
+3. Navigate to the **Local Server** tab (↔️ icon) in LM Studio:
+   - Select your loaded model.
+   - Check **Enable CORS** (Cross-Origin Resource Sharing).
+   - Start the server on port `1234`.
+4. In Bru Chat:
+   - Open **Settings** → **OpenAI-Compatible Providers**.
+   - Set URL: `http://localhost:1234/v1` (API key can be left empty or set to `lm-studio`).
+   - Save and select your model from the dropdown.
 
-### Manual Installation
+---
 
-#### Pre-requisites
+## 🛠️ Development & Building
 
-- Bun - [Installation Guide](https://bun.sh/)
-- Ollama (Local AI Provider) - [Installation Guide](https://ollama.com)
-- Any OpenAI API Compatible Endpoint (like LM Studio, llamafile etc.)
+Bru Chat is built using [WXT](https://wxt.dev/), React, TypeScript, Tailwind CSS, and [Bun](https://bun.sh/).
 
-1. Clone the repository
+### Prerequisites
+- [Bun](https://bun.sh/) (v1.1+)
 
+### Local Development
 ```bash
-git clone https://github.com/n4ze3m/page-assist.git
-cd page-assist
-```
+# Clone the repository
+git clone https://github.com/bru-chat/bru-chat.git
+cd bru-chat
 
-2. Install the dependencies
-
-```bash
+# Install dependencies
 bun install
+
+# Run Chrome MV3 dev server with hot reloading
+bun run dev
+
+# Run Firefox dev server
+bun run dev:firefox
 ```
 
-3. Build the extension (by default it will build for Chrome, Edge and Firefox)
-
+### Production Build
 ```bash
+# Build for Chrome MV3, Firefox MV2, and Edge
 bun run build
+
+# Or build target-specific bundles:
+bun run build:chrome
+bun run build:firefox
+
+# Create zip archives for release
+bun run zip
+bun run zip:firefox
 ```
+The output builds will be located in the `.output/` or `build/` directory ready to be unpacked into Chrome (`chrome://extensions`) or Firefox (`about:debugging`).
 
-_Note: If you face any issues with Bun, use `npm` instead of `bun`._
+---
 
-4. Load the extension (chrome)
+## 🔒 Privacy Commitment
 
-- Open the Extension Management page by navigating to `chrome://extensions`.
+Bru Chat is strictly **local-first**:
+- ❌ No telemetry or tracking SDKs.
+- ❌ No remote analytics or usage metrics.
+- ❌ No prompt forwarding to external servers.
+- ✅ All chat logs and index databases are stored locally in your browser's IndexedDB via Dexie.
+- ✅ Full network transparency — inspect your browser's DevTools Network tab anytime.
 
-- Enable Developer Mode by clicking the toggle switch next to Developer mode.
+---
 
-- Click the `Load unpacked` button and select the `build` directory.
+## 📄 License
 
-5. Load the extension (firefox)
-
-- Open the Add-ons page by navigating to `about:addons`.
-- Click the `Extensions` tab.
-- Click the `Manage Your Extensions` button.
-- Click the `Load Temporary Add-on` button and select the `manifest.json` file from the `build` directory.
-
-## Usage
-
-### Sidebar
-
-Once the extension is installed, you can open the sidebar via context menu or keyboard shortcut.
-
-Default Keyboard Shortcut: `Ctrl+Shift+Y`
-
-### Web UI
-
-You can open the Web UI by clicking on the extension icon which will open a new tab with the Web UI.
-
-Default Keyboard Shortcut: `Ctrl+Shift+L`
-
-Note: You can change the keyboard shortcuts from the extension settings on the Chrome Extension Management page.
-
-## Keyboard Shortcuts
-
-Page Assist supports various keyboard shortcuts to enhance your productivity:
-
-### Extension Shortcuts
-
-| Action | Shortcut | Description |
-|--------|----------|-------------|
-| Open Sidebar | `Ctrl+Shift+Y` | Opens the sidebar on any webpage |
-| Open Web UI | `Ctrl+Shift+L` | Opens the Web UI in a new tab |
-
-**Note**: You can customize extension shortcuts from your browser's extension management page .
-
-### Application Shortcuts
-
-| Action | Shortcut | Description |
-|--------|----------|-------------|
-| New Chat | `Ctrl+Shift+O` | Starts a new chat conversation |
-| Toggle Sidebar | `Ctrl+B` | Opens/closes the chat history sidebar |
-| Focus Textarea | `Shift+Esc` | Focuses the message input field |
-| Toggle Chat Mode | `Ctrl+E` | Toggles between normal chat and chat with current page |
-
-
-
-## Development
-
-You can run the extension in development mode to make changes and test them.
-
-```bash
-bun dev
-```
-
-This will start a development server and watch for changes in the source files. You can load the extension in your browser and test the changes.
-
-## Browser Support
-
-| Browser     | Sidebar | Chat With Webpage | Web UI |
-| ----------- | ------- | ----------------- | ------ |
-| Chrome      | ✅      | ✅                | ✅     |
-| Brave       | ✅      | ✅                | ✅     |
-| Firefox     | ✅      | ✅                | ✅     |
-| Vivaldi     | ✅      | ✅                | ✅     |
-| Edge        | ✅      | ✅                | ✅     |
-| LibreWolf   | ✅      | ✅                | ✅     |
-| Zen Browser | ✅      | ✅                | ✅     |
-| Opera       | ❌      | ❌                | ✅     |
-| Arc         | ❌      | ❌                | ✅     |
-
-## Local AI Provider
-
-- [Ollama](https://github.com/ollama/ollama)
-
-- Chrome AI (Gemini Nano)
-
-- OpenAI API Compatible endpoints (like LM Studio, llamafile etc.)
-
-## Roadmap
-
-- [x] Firefox Support
-- [x] More Local AI Providers
-- [ ] More Customization Options
-- [ ] Better UI/UX
-
-## Privacy
-
-Page Assist does not collect any personal data. The only time the extension communicates with the server is when you are using the share feature, which can be disabled from the settings.
-
-All the data is stored locally in the browser storage. You can view the source code and verify it yourself.
-
-You learn more about the privacy policy [here](PRIVACY.md).
-
-## Contributing
-
-Contributions are welcome. If you have any feature requests, bug reports, or questions, feel free to create an issue.
-
-## Support
-
-If you like the project and want to support it, you can buy me a coffee. It will help me to keep working on the project.
-
-<a href='https://ko-fi.com/M4M3EMCLL' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi2.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
-
-or you can sponsor me on GitHub.
-
-A huge thank you to everyone who has supported Page Assist through [Ko-fi](https://ko-fi.com/M4M3EMCLL) and [GitHub Sponsors](https://github.com/sponsors/n4ze3m) — your generosity keeps this project going. 💛
-
-## Blogs and Videos About Page Assist
-
-This are some of the blogs and videos about Page Assist. If you have written a blog or made a video about Page Assist, feel free to create a PR and add it here.
-
-- [OllamaをChromeAddonのPage Assistで簡単操作](https://note.com/lucas_san/n/nf00d01a02c3a) by [LucasChatGPT](https://twitter.com/LucasChatGPT)
-
-- [This Chrome Extension Surprised Me](https://www.youtube.com/watch?v=IvLTlDy9G8c) by [Matt Williams](https://www.youtube.com/@technovangelist)
-
-- [Ollama With 1 Click](https://www.youtube.com/watch?v=61uN5jtj2wo) by [Yaron Been From EcomXFactor](https://www.youtube.com/@ecomxfactor-YaronBeen)
-
-- [Page Assist 介绍合集](https://mp.weixin.qq.com/mp/appmsgalbum?__biz=Mzk2NDUxNDQ3Nw==&action=getalbum&album_id=3845692786608553984#wechat_redirect) by 百工智用公众号
-
-
-- [Eine KI auf dem eigenen Rechner laufen lassen, 10 Minuten Installation](https://www.johannesholstein.de/gsCMS/index.php?id=sonstige-video-tutorials) by [Johannes Holstein](https://www.johannesholstein.de)
-
-## License
-
-MIT
-
-## Last but not least
-
-Made in [Alappuzha](https://en.wikipedia.org/wiki/Alappuzha) with ❤️
+Bru Chat is licensed under the **GNU General Public License v3.0 (GPL-3.0)**. See [LICENCE](LICENCE) for details.

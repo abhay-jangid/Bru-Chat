@@ -22,6 +22,7 @@ import {
 } from "./types"
 import { PageAssistDatabase } from "./chat"
 import { db as chatDB } from "./schema"
+import { BRU_MODEL_PRESETS } from "@/data/default-prompts"
 import {
   deletePromptByIdFB,
   getAllPromptsFB,
@@ -281,29 +282,23 @@ export const deleteChatForEdit = async (history_id: string, index: number) => {
 
 // Prompt Functions
 export const getAllPrompts = async () => {
+  let userPrompts: Prompt[] = []
   try {
     const db = new PageAssistDatabase()
-    return await db.getAllPrompts()
+    userPrompts = await db.getAllPrompts()
   } catch (e) {
     if (isDatabaseClosedError(e)) {
-      return await getAllPromptsFB()
+      userPrompts = await getAllPromptsFB()
     }
-
-    return []
   }
+
+  const existingIds = new Set(userPrompts.map((p) => p.id))
+  const presetsToAdd = BRU_MODEL_PRESETS.filter((p) => !existingIds.has(p.id))
+  return [...presetsToAdd, ...userPrompts]
 }
 
 export const getAllPromptsSystem = async () => {
-  try {
-    const db = new PageAssistDatabase()
-    return await db.getAllPrompts()
-  } catch (e) {
-    if (isDatabaseClosedError(e)) {
-      return await getAllPromptsFB()
-    }
-
-    return []
-  }
+  return await getAllPrompts()
 }
 
 export const savePrompt = async ({
@@ -357,12 +352,18 @@ export const getPromptById = async (id: string) => {
   try {
     if (!id || id.trim() === "") return null
     const db = new PageAssistDatabase()
-    return await db.getPromptById(id)
+    const prompt = await db.getPromptById(id)
+    if (prompt) return prompt
+    const preset = BRU_MODEL_PRESETS.find((p) => p.id === id)
+    if (preset) return preset
+    return null
   } catch (e) {
     if (isDatabaseClosedError(e)) {
-      return await getPromptByIdFB(id)
+      const fbPrompt = await getPromptByIdFB(id)
+      if (fbPrompt) return fbPrompt
     }
-    return null
+    const preset = BRU_MODEL_PRESETS.find((p) => p.id === id)
+    return preset || null
   }
 }
 

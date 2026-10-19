@@ -18,6 +18,7 @@ import { CurrentChatModelSettings } from "@/components/Common/Settings/CurrentCh
 import React from "react"
 import { useStorage } from "@plasmohq/storage/hook"
 import { PromptSelect } from "@/components/Common/PromptSelect"
+import { ExecutionModeToggle } from "@/components/Common/ExecutionModeToggle"
 import { Sidebar } from "@/components/Option/Sidebar"
 import { BsIncognito } from "react-icons/bs"
 import { isFireFoxPrivateMode } from "@/utils/is-private-mode"
@@ -76,9 +77,9 @@ export const SidepanelHeader = ({
         <img
           className="h-6 w-auto"
           src={logoImage}
-          alt={t("common:pageAssist")}
+          alt="Bru Chat"
         />
-        <span className="ml-1 text-sm ">{t("common:pageAssist")}</span>
+        <span className="ml-1 text-sm font-semibold">Bru Chat</span>
       </div>
 
       <div className="flex items-center space-x-3">
@@ -159,6 +160,7 @@ export const SidepanelHeader = ({
           iconClassName="size-4"
           className="text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
         />
+        <ExecutionModeToggle compact />
         {!hideCurrentChatModelSettings && (
           <Tooltip title={t("common:currentChatModelSettings")}>
             <button

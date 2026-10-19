@@ -27,8 +27,8 @@ export default defineContentScript({
       buttonContainer.innerHTML = `
         <button-view-model class="ytSpecButtonViewModelHost style-scope ytd-menu-renderer">
           <button class="yt-spec-button-shape-next yt-spec-button-shape-next--tonal yt-spec-button-shape-next--mono yt-spec-button-shape-next--size-m yt-spec-button-shape-next--icon-leading yt-spec-button-shape-next--enable-backdrop-filter-experiment pageassist-youtube-summarize"
-                  title="Summarize with Page Assist"
-                  aria-label="Summarize with Page Assist"
+                  title="Summarize with Bru Chat"
+                  aria-label="Summarize with Bru Chat"
                   aria-disabled="false"
                   style="">
             <div aria-hidden="true" class="yt-spec-button-shape-next__icon">

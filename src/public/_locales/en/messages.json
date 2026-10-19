@@ -1,9 +1,9 @@
 {
     "extName": {
-        "message": "Page Assist - A Web UI for Local AI Models"
+        "message": "Bru Chat"
     },
     "extDescription": {
-        "message": "Use your locally running AI models to assist you in your web browsing."
+        "message": "Free, local-first AI web companion"
     },
     "openSidePanelToChat": {
         "message": "Open Side Panel to Chat"
