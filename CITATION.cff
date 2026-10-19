@@ -6,8 +6,8 @@ type: software
 authors:
   - given-names: Muhammed Nazeem
     alias: n4ze3m
-repository-code: "https://github.com/n4ze3m/page-assist"
-url: "https://github.com/n4ze3m/page-assist"
+repository-code: "https://github.com/abhay-jangid/bru-chat"
+url: "https://github.com/abhay-jangid/bru-chat"
 license: MIT
 version: 1.5.86
 keywords:

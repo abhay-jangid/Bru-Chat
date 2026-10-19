@@ -59,15 +59,15 @@ export const ExecutionModeToggle: React.FC<Props> = ({
           type="button"
           aria-label="Toggle Fast / Deep Analysis Mode"
           onClick={() => toggleMode(isFast ? "deep" : "fast")}
-          className={`relative inline-flex items-center justify-center p-1.5 rounded-lg transition-all duration-200 border focus:outline-none focus:ring-2 focus:ring-offset-1 ${
+          className={`relative inline-flex items-center justify-center p-1.5 rounded-xl transition-all duration-200 border focus:outline-none ${
             isFast
-              ? "bg-amber-500/10 border-amber-500/30 text-amber-600 dark:text-amber-400 hover:bg-amber-500/20 focus:ring-amber-400"
-              : "bg-indigo-500/10 border-indigo-500/30 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-500/20 focus:ring-indigo-400"
+              ? "bg-white/20 border-white/30 text-white shadow-sm"
+              : "bg-white/10 border-white/20 text-neutral-300 shadow-sm"
           } ${className}`}>
           {isFast ? (
-            <Zap className="size-4 animate-pulse text-amber-500" />
+            <Zap className="size-4 text-white" />
           ) : (
-            <Brain className="size-4 text-indigo-500" />
+            <Brain className="size-4 text-neutral-400" />
           )}
         </button>
       </Tooltip>
@@ -76,17 +76,17 @@ export const ExecutionModeToggle: React.FC<Props> = ({
 
   return (
     <div
-      className={`inline-flex items-center p-0.5 rounded-full bg-gray-200/70 dark:bg-zinc-800/80 border border-gray-300/80 dark:border-zinc-700 backdrop-blur-sm text-xs font-medium select-none shadow-sm ${className}`}>
+      className={`inline-flex items-center p-0.5 rounded-xl bg-black/30 border border-white/10 backdrop-blur-md text-xs font-medium select-none ${className}`}>
       <Tooltip title="Fast Mode: Low temperature (0.2), rapid concise summaries, minimal token usage">
         <button
           type="button"
           onClick={() => toggleMode("fast")}
-          className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full transition-all duration-200 focus:outline-none ${
+          className={`flex items-center gap-1.5 px-3 py-1 rounded-lg transition-all duration-200 focus:outline-none text-xs font-medium ${
             isFast
-              ? "bg-amber-500 text-white shadow-sm font-semibold"
-              : "text-gray-600 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-white"
+              ? "bg-white/20 text-white border border-white/30 shadow-sm"
+              : "text-neutral-400 hover:text-white border border-transparent"
           }`}>
-          <Zap className={`size-3.5 ${isFast ? "text-white" : "text-amber-500"}`} />
+          <Zap className="size-3.5 fill-current" />
           <span>Fast</span>
         </button>
       </Tooltip>
@@ -95,12 +95,12 @@ export const ExecutionModeToggle: React.FC<Props> = ({
         <button
           type="button"
           onClick={() => toggleMode("deep")}
-          className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full transition-all duration-200 focus:outline-none ${
+          className={`flex items-center gap-1.5 px-3 py-1 rounded-lg transition-all duration-200 focus:outline-none text-xs font-medium ${
             !isFast
-              ? "bg-indigo-600 text-white shadow-sm font-semibold"
-              : "text-gray-600 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-white"
+              ? "bg-white/20 text-white border border-white/30 shadow-sm"
+              : "text-neutral-400 hover:text-white border border-transparent"
           }`}>
-          <Brain className={`size-3.5 ${!isFast ? "text-white" : "text-indigo-400"}`} />
+          <Brain className="size-3.5" />
           <span>Deep</span>
         </button>
       </Tooltip>

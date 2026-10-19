@@ -3,6 +3,10 @@
   "displayName": "Bru Chat - Free, local-first AI web companion",
   "version": "1.0.0",
   "description": "Free, local-first AI web companion",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/abhay-jangid/bru-chat.git"
+  },
   "author": "n4ze3m",
   "scripts": {
     "dev": "cross-env TARGET=chrome wxt",

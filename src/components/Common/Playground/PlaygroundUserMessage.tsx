@@ -124,10 +124,10 @@ export const PlaygroundUserMessageBubble: React.FC<Props> = (props) => {
         <div
           dir="auto"
           data-is-not-editable={!editMode}
-          className={`message-bubble bg-gray-50 dark:bg-[#242424] rounded-3xl prose dark:prose-invert break-words text-primary min-h-7 prose-p:opacity-95 prose-strong:opacity-100 bg-foreground max-w-[100%] sm:max-w-[90%] px-4 py-2.5 rounded-br-lg ${
+          className={`message-bubble bg-white/10 backdrop-blur-md rounded-3xl prose dark:prose-invert break-words text-neutral-100 min-h-7 prose-p:leading-relaxed max-w-[100%] sm:max-w-[90%] px-4 py-2.5 rounded-br-lg border border-white/20 shadow-md ${
             props.temporaryChat
-              ? "border-2 border-dotted border-violet-400 dark:border-gray-400"
-              : "border border-input-border dark:border-[#2a2a2a]"
+              ? "border-2 border-dotted border-amber-400"
+              : ""
           } ${
             props.message_type && props.message_type !== "normal" && !editMode ? "italic" : ""
           }`}>
@@ -138,10 +138,10 @@ export const PlaygroundUserMessageBubble: React.FC<Props> = (props) => {
       {editMode && (
         <div
           dir="auto"
-          className={`message-bubble bg-gray-50 dark:bg-[#2a2a2a] rounded-3xl prose dark:prose-invert break-words text-primary min-h-7 prose-p:opacity-95 prose-strong:opacity-100 bg-foreground max-w-[100%] sm:max-w-[90%] px-4 py-2.5 rounded-br-lg ${
+          className={`message-bubble bg-white/10 backdrop-blur-md rounded-3xl prose dark:prose-invert break-words text-neutral-100 min-h-7 prose-p:leading-relaxed max-w-[100%] sm:max-w-[90%] px-4 py-2.5 rounded-br-lg border border-white/20 shadow-md ${
             props.temporaryChat
-              ? "border-2 border-dotted border-violet-400 dark:border-gray-400"
-              : "border border-input-border dark:border-[#2a2a2a]"
+              ? "border-2 border-dotted border-amber-400"
+              : ""
           } ${
             props.message_type && props.message_type !== "normal" && !editMode ? "italic" : ""
           }`}>
@@ -210,11 +210,11 @@ export const PlaygroundUserMessageBubble: React.FC<Props> = (props) => {
                     })
                   }
                 }}
-                className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-100 dark:bg-[#242424] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                className="glass-control flex items-center justify-center w-6 h-6 rounded-full text-neutral-400 hover:text-white transition-colors duration-200">
                 {!isSpeaking ? (
-                  <PlayIcon className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
+                  <PlayIcon className="w-3 h-3 text-neutral-400 group-hover:text-white" />
                 ) : (
-                  <Square className="w-3 h-3 text-red-400 group-hover:text-red-500" />
+                  <Square className="w-3 h-3 text-rose-400 group-hover:text-rose-300" />
                 )}
               </button>
             </Tooltip>
@@ -230,11 +230,11 @@ export const PlaygroundUserMessageBubble: React.FC<Props> = (props) => {
                     setIsBtnPressed(false)
                   }, 2000)
                 }}
-                className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-50 dark:bg-[#242424] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                className="glass-control flex items-center justify-center w-6 h-6 rounded-full text-neutral-400 hover:text-white transition-colors duration-200">
                 {!isBtnPressed ? (
-                  <CopyIcon className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
+                  <CopyIcon className="w-3 h-3 text-neutral-400 group-hover:text-white" />
                 ) : (
-                  <CheckIcon className="w-3 h-3 text-green-400 group-hover:text-green-500" />
+                  <CheckIcon className="w-3 h-3 text-emerald-400 group-hover:text-emerald-300" />
                 )}
               </button>
             </Tooltip>
@@ -245,8 +245,8 @@ export const PlaygroundUserMessageBubble: React.FC<Props> = (props) => {
               <button
                 onClick={() => setEditMode(true)}
                 aria-label={t("edit")}
-                className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-50 dark:bg-[#242424] hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
-                <Pen className="w-3 h-3 text-gray-400 group-hover:text-gray-500" />
+                className="glass-control flex items-center justify-center w-6 h-6 rounded-full text-neutral-400 hover:text-white transition-colors duration-200">
+                <Pen className="w-3 h-3 text-neutral-400 group-hover:text-white" />
               </button>
             </Tooltip>
           )}

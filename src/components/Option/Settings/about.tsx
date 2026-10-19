@@ -83,6 +83,19 @@ export const AboutApp = () => {
                     @page_assist
                   </a>
                 )
+              },
+              {
+                key: 4,
+                label: "GitHub Repository",
+                children: (
+                  <a
+                    href="https://github.com/abhay-jangid/bru-chat"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-blue-500 dark:text-blue-400">
+                    abhay-jangid/bru-chat
+                  </a>
+                )
               }
             ]}
           />

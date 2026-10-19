@@ -1,7 +1,7 @@
 import { cleanUrl } from "@/libs/clean-url"
 import { useStorage } from "@plasmohq/storage/hook"
 import { useQuery } from "@tanstack/react-query"
-import { RotateCcw } from "lucide-react"
+import { RotateCcw, Sparkles } from "lucide-react"
 import { useEffect, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { Link } from "react-router-dom"
@@ -46,98 +46,107 @@ export const PlaygroundEmpty = () => {
     }
   }, [ollamaInfo])
 
+  const isDisconnected =
+    checkOllamaStatus &&
+    !isRefetching &&
+    ollamaStatus === "success" &&
+    !ollamaInfo?.isOk
 
-  if (!checkOllamaStatus) {
-    return (
-      <div className="mx-auto sm:max-w-xl px-4 mt-10">
-        <div className="rounded-lg justify-center items-center flex flex-col border p-8 bg-gray-50 dark:bg-[#262626] dark:border-gray-600">
-          <h1 className="text-sm  font-medium text-center text-gray-500 dark:text-gray-400 flex gap-3 items-center justify-center">
-            <span >👋</span>
-            <span className="text-gray-700 dark:text-gray-300">
-              {t("welcome")}
-            </span>
-          </h1>
-        </div>
-      </div>
-    )
-  }
   return (
-    <div className="mx-auto sm:max-w-xl px-4 mt-10">
-      <div className="rounded-lg justify-center items-center flex flex-col border p-8 bg-gray-50 dark:bg-[#262626]  dark:border-gray-600">
-        {(ollamaStatus === "pending" || isRefetching) && (
-          <div className="inline-flex items-center space-x-2">
-            <div className="w-3 h-3 bg-blue-500 rounded-full animate-pulse"></div>
-            <p className="dark:text-gray-400 text-gray-900">
-              {t("ollamaState.searching")}
-            </p>
+    <div className="mx-auto w-full max-w-xl px-4 flex flex-col items-center justify-center select-none">
+      {/* 1. Connection Status Card (When Ollama is disconnected) */}
+      {isDisconnected && (
+        <div className="glass-panel w-full rounded-3xl p-6 mb-8 shadow-2xl transition-all duration-300">
+          {/* Header with coral-red pulsing indicator */}
+          <div className="flex items-center gap-2.5 mb-1.5">
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#EF4444] opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#EF4444] shadow-[0_0_8px_#EF4444]"></span>
+            </span>
+            <h2 className="text-[#F4F4F5] font-semibold text-base tracking-tight">
+              Ollama isn't connected
+            </h2>
           </div>
-        )}
-        {!isRefetching && ollamaStatus === "success" ? (
-          ollamaInfo.isOk ? (
-            <div className="inline-flex  items-center space-x-2">
-              <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-              <p className="dark:text-gray-400 text-gray-900">
-                {t("ollamaState.running")}
-              </p>
-            </div>
-          ) : (
-            <div className="flex flex-col space-y-2 justify-center items-center">
-              <div className="inline-flex  space-x-2">
-                <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
-                <p className="dark:text-gray-400 text-gray-900">
-                  {t("ollamaState.notRunning")}
-                </p>
-              </div>
 
-              <input
-                className="bg-gray-100 dark:bg-[#262626] dark:text-gray-100 rounded-md px-4 py-2 mt-2 w-full"
-                type="url"
-                value={ollamaURL}
-                onChange={(e) => setOllamaURL(e.target.value)}
-              />
+          <p className="text-neutral-400 text-xs mb-4">
+            Make sure Ollama is running locally, then try again.
+          </p>
 
-              <button
-                onClick={() => {
-                  saveOllamaURL(ollamaURL)
-                  refetch()
-                }}
-                className="inline-flex mt-4 items-center rounded-md border border-transparent bg-black px-2 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:bg-white dark:text-gray-800 dark:hover:bg-gray-100 dark:focus:ring-gray-500 dark:focus:ring-offset-gray-100 disabled:opacity-50 ">
-                <RotateCcw className="h-4 w-4 mr-3" />
-                {t("common:retry")}
-              </button>
+          {/* URL Input and Retry Button row */}
+          <div className="flex items-center gap-2.5 w-full">
+            <input
+              className="bg-black/40 border border-white/10 focus:border-white/30 focus:outline-none text-[#F4F4F5] placeholder-neutral-500 rounded-xl px-3.5 py-2.5 text-xs flex-1 transition-all font-mono"
+              type="url"
+              placeholder="http://127.0.0.1:11434"
+              value={ollamaURL}
+              onChange={(e) => setOllamaURL(e.target.value)}
+            />
 
-              {ollamaURL &&
-                cleanUrl(ollamaURL) !== "http://127.0.0.1:11434" && (
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-4 text-center">
-                    <Trans
-                      i18nKey="playground:ollamaState.connectionError"
-                      components={{
-                        anchor: (
-                          <a
-                            href="https://github.com/n4ze3m/page-assist/blob/main/docs/connection-issue.md"
-                            target="__blank"
-                            className="text-blue-600 dark:text-blue-400"></a>
-                        )
-                      }}
+            <button
+              type="button"
+              onClick={() => {
+                saveOllamaURL(ollamaURL)
+                refetch()
+              }}
+              className="glass-control bg-white/10 hover:bg-white/20 active:scale-95 text-white font-medium text-xs px-5 py-2.5 rounded-xl flex items-center gap-2 transition-all shrink-0">
+              <RotateCcw className="w-3.5 h-3.5" />
+              <span>{t("common:retry", { defaultValue: "Retry" })}</span>
+            </button>
+          </div>
+
+          {ollamaURL && cleanUrl(ollamaURL) !== "http://127.0.0.1:11434" && (
+            <p className="text-[11px] text-neutral-400 mt-3 text-center">
+              <Trans
+                i18nKey="playground:ollamaState.connectionError"
+                components={{
+                  anchor: (
+                    <a
+                      href="https://github.com/abhay-jangid/bru-chat/blob/main/docs/connection-issue.md"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-neutral-200 hover:text-white underline"
                     />
-                  </p>
-                )}
+                  )
+                }}
+              />
+            </p>
+          )}
+        </div>
+      )}
 
-              <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
-                <Trans
-                  i18nKey="playground:ollamaState.noOllamaHint"
-                  components={{
-                    anchor: (
-                      <Link
-                        to="/settings/ollama"
-                        className="text-blue-600 dark:text-blue-400 underline"></Link>
-                    )
-                  }}
-                />
-              </p>
-            </div>
-          )
-        ) : null}
+      {/* Loading state indicator */}
+      {(ollamaStatus === "pending" || isRefetching) && (
+        <div className="glass-panel inline-flex items-center gap-2 px-4 py-2 rounded-xl mb-6">
+          <div className="w-2.5 h-2.5 bg-white rounded-full animate-pulse shadow-[0_0_10px_rgba(255,255,255,0.8)]"></div>
+          <p className="text-xs text-neutral-300">{t("ollamaState.searching")}</p>
+        </div>
+      )}
+
+      {/* Connected indicator badge (subtle) */}
+      {!isRefetching && ollamaStatus === "success" && ollamaInfo?.isOk && (
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-6">
+          <div className="w-2 h-2 bg-emerald-400 rounded-full shadow-[0_0_8px_rgba(52,211,153,0.6)]"></div>
+          <span className="text-[11px] font-medium text-emerald-400">
+            {t("ollamaState.running", { defaultValue: "Ollama Connected" })}
+          </span>
+        </div>
+      )}
+
+      {/* 2. Welcome Watermark (When connected or resting) */}
+      <div className="flex flex-col items-center justify-center text-center mt-2">
+        {/* Sparkle divider */}
+        <div className="flex items-center justify-center gap-3 w-64 mx-auto mb-4">
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent to-white/[0.15]" />
+          <Sparkles className="w-4 h-4 text-neutral-300" />
+          <div className="h-px flex-1 bg-gradient-to-l from-transparent to-white/[0.15]" />
+        </div>
+
+        <h1 className="text-2xl font-semibold text-[#F4F4F5] tracking-tight">
+          Your private AI workspace
+        </h1>
+        <p className="text-neutral-400 text-sm mt-1.5 font-normal">
+          Local models. Your data. Complete privacy.
+        </p>
       </div>
     </div>
   )

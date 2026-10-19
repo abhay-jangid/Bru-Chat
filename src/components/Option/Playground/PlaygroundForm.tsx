@@ -20,7 +20,9 @@ import {
   Brain,
   PlusIcon,
   MinusIcon,
-  ArrowUp
+  ArrowUp,
+  Send,
+  ChevronDown
 } from "lucide-react"
 import { getVariable } from "@/utils/select-variable"
 import { useTranslation } from "react-i18next"
@@ -623,13 +625,13 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
   )
 
   return (
-    <div className="flex w-full flex-col items-center px-2">
+    <div className="flex w-full flex-col items-center px-4 mb-4">
       <div className="relative z-10 flex w-full flex-col items-center justify-center gap-2 text-base">
-        <div className="relative flex w-full flex-row justify-center gap-2 lg:w-3/5">
+        <div className="relative flex w-full flex-row justify-center gap-2 max-w-4xl">
           <div
             data-istemporary-chat={temporaryChat}
             data-checkwidemode={checkWideMode}
-            className={` bg-neutral-50/70  dark:bg-[#2a2a2a] relative w-full max-w-[48rem] p-1 backdrop-blur-3xl dark:backdrop-blur-none duration-100 border border-gray-300 rounded-t-xl  dark:border-[#404040] data-[istemporary-chat='true']:bg-violet-100/70 data-[istemporary-chat='true']:border-violet-300 data-[istemporary-chat='true']:dark:bg-black data-[istemporary-chat='true']:dark:border-[#404040] data-[checkwidemode='true']:max-w-none`}>
+            className={`glass-dock rounded-3xl p-3.5 relative w-full duration-100 data-[istemporary-chat='true']:border-amber-500/40`}>
             {enableMessageQueue &&
               optimizeQueueForSmallScreen &&
               hasQueuedMessages && (
@@ -686,7 +688,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
             )}
             <QuotedReplyChip />
             {form.values.images && form.values.images.length > 0 && (
-              <div className="p-3 border-b border-gray-200 dark:border-[#404040]">
+              <div className="p-3 border-b border-white/10">
                 <div className="flex flex-wrap gap-2">
                   {form.values.images.map((img, index) => (
                     <div key={index} className="relative">
@@ -723,7 +725,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
               </div>
             )}
             {uploadedFiles.length > 0 && (
-              <div className="p-3 border-b border-gray-200 dark:border-[#404040]">
+              <div className="p-3 border-b border-white/10">
                 <div className="flex items-center justify-end mb-2">
                   <div className="flex items-center gap-2">
                     <Tooltip title={t("fileRetrievalEnabled")}>
@@ -803,12 +805,12 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                         }}
                         onKeyDown={(e) => handleKeyDown(e)}
                         ref={textareaRef}
-                        className="px-2 py-2 w-full resize-none bg-transparent focus-within:outline-none focus:ring-0 focus-visible:ring-0 ring-0 dark:ring-0 border-0 dark:text-gray-100"
+                        className="px-2 py-1.5 w-full resize-none bg-transparent focus-within:outline-none focus:ring-0 focus-visible:ring-0 ring-0 dark:ring-0 border-0 text-[#F4F4F5] placeholder:text-neutral-500 text-sm font-normal"
                         onPaste={handlePaste}
                         rows={1}
-                        style={{ minHeight: "35px" }}
+                        style={{ minHeight: "36px" }}
                         tabIndex={0}
-                        placeholder={t("form.textarea.placeholder")}
+                        placeholder={t("form.textarea.placeholder", { defaultValue: "Type a message..." })}
                         {...form.getInputProps("message")}
                         onChange={(e) => {
                           form.getInputProps("message").onChange(e)
@@ -850,23 +852,28 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                         onMentionsOpen={handleMentionsOpen}
                       />
                     </div>
-                    <div className="mt-2 flex justify-between items-center">
+                    <div className="mt-2.5 flex justify-between items-center pt-2 border-t border-white/[0.08]">
                       <div
                         className={`items-center gap-3 ${
                           useCompactActions ? "hidden md:flex" : "flex"
                         }`}>
                         {!selectedKnowledge && (
                           <Tooltip title={t("tooltip.searchInternet")}>
-                            <div className="inline-flex items-center gap-2">
+                            <div className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-xl border transition-colors ${
+                              webSearch
+                                ? "bg-white/10 border-white/30 text-white"
+                                : "bg-white/[0.03] border-white/[0.08] text-neutral-400 hover:border-white/[0.16] hover:text-neutral-200"
+                            }`}>
                               <PiGlobe
-                                className={`h-5 w-5 dark:text-gray-300 `}
+                                className={`h-4 w-4 ${webSearch ? "text-white" : "text-neutral-400"}`}
                               />
                               <Switch
-                                value={webSearch}
+                                size="small"
+                                checked={webSearch}
                                 onChange={(e) => setWebSearch(e)}
-                                checkedChildren={t("form.webSearch.on")}
-                                unCheckedChildren={t("form.webSearch.off")}
+                                className={webSearch ? "!bg-white" : ""}
                               />
+                              <span className="text-xs font-medium">Web</span>
                             </div>
                           </Tooltip>
                         )}
@@ -876,7 +883,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                             <div className="inline-flex items-center gap-2">
                               <Tooltip title="Adjust reasoning intensity (always enabled)">
                                 <div className="inline-flex items-center gap-2">
-                                  <Brain className="h-5 w-5 text-gray-600 dark:text-gray-400" />
+                                  <Brain className="h-5 w-5 text-neutral-400" />
                                 </div>
                               </Tooltip>
                               <Select
@@ -913,7 +920,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                             <div className="inline-flex items-center gap-2">
                               <Tooltip title={t("tooltip.thinking")}>
                                 <div className="inline-flex items-center gap-2">
-                                  <Brain className="h-5 w-5 dark:text-gray-300" />
+                                  <Brain className="h-5 w-5 text-neutral-300" />
                                   <Switch
                                     checked={thinking !== false}
                                     onChange={(e) => setThinking?.(e)}
@@ -926,7 +933,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                           ))}
                       </div>
                       <div
-                        className={`flex items-center gap-3 ${
+                        className={`flex items-center gap-2 ${
                           useCompactActions
                             ? "w-full justify-between md:w-auto md:justify-end"
                             : "!justify-end"
@@ -941,18 +948,18 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                             <Tooltip title={t("common:more", "More")}>
                               <button
                                 type="button"
-                                className="inline-flex items-center justify-center rounded-md border border-gray-300 p-1.5 dark:border-[#404040] dark:text-gray-300 md:hidden">
+                                className="inline-flex items-center justify-center rounded-xl border border-white/10 p-1.5 text-neutral-400 hover:text-white hover:bg-white/[0.06] md:hidden">
                                 <PlusIcon className="h-4 w-4" />
                               </button>
                             </Tooltip>
                           </Popover>
                         )}
                         <div
-                          className={`flex items-center gap-3 ${
+                          className={`flex items-center gap-2 ${
                             useCompactActions ? "ml-auto" : ""
                           }`}>
                         <div
-                          className={`items-center gap-3 ${
+                          className={`items-center gap-1 ${
                             useCompactActions ? "hidden md:flex" : "flex"
                           }`}>
                           {history.length > 0 && (
@@ -962,10 +969,10 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                 onClick={() => {
                                   setHistory([])
                                 }}
-                                className={`flex items-center justify-center dark:text-gray-300 ${
+                                className={`p-1.5 rounded-xl text-neutral-400 hover:text-white hover:bg-white/[0.08] transition-colors ${
                                   chatMode === "rag" ? "hidden" : "block"
                                 }`}>
-                                <EraserIcon className="h-5 w-5" />
+                                <EraserIcon className="h-4 w-4" />
                               </button>
                             </Tooltip>
                           )}
@@ -976,10 +983,10 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                 onClick={() => {
                                   inputRef.current?.click()
                                 }}
-                                className={`flex items-center justify-center dark:text-gray-300 ${
+                                className={`p-1.5 rounded-xl text-neutral-400 hover:text-white hover:bg-white/[0.08] transition-colors ${
                                   chatMode === "rag" ? "hidden" : "block"
                                 }`}>
-                                <ImageIcon className="h-5 w-5" />
+                                <ImageIcon className="h-4 w-4" />
                               </button>
                             </Tooltip>
                           )}
@@ -998,13 +1005,13 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                     })
                                   }
                                 }}
-                                className={`flex items-center justify-center dark:text-gray-300`}>
+                                className="p-1.5 rounded-xl text-neutral-400 hover:text-white hover:bg-white/[0.08] transition-colors">
                                 {!isListening ? (
-                                  <MicIcon className="h-5 w-5" />
+                                  <MicIcon className="h-4 w-4" />
                                 ) : (
                                   <div className="relative">
-                                    <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-red-400 opacity-75"></span>
-                                    <MicIcon className="h-5 w-5" />
+                                    <span className="animate-ping absolute inline-flex h-2.5 w-2.5 rounded-full bg-[#EF4444] opacity-75"></span>
+                                    <MicIcon className="h-4 w-4 text-[#EF4444]" />
                                   </div>
                                 )}
                               </button>
@@ -1023,10 +1030,10 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                               }
                               fileInputRef.current?.click()
                             }}
-                            className={`flex items-center justify-center dark:text-gray-300 ${
+                            className={`p-1.5 rounded-xl text-neutral-400 hover:text-white hover:bg-white/[0.08] transition-colors ${
                               useCompactActions ? "p-1.5" : ""
                             }`}>
-                            <PaperclipIcon className="h-5 w-5" />
+                            <PaperclipIcon className="h-4 w-4" />
                           </button>
                         </Tooltip>
                         {useCompactActions && browserSupportsSpeechRecognition && (
@@ -1044,13 +1051,13 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                   })
                                 }
                               }}
-                              className="inline-flex items-center justify-center p-1.5 dark:text-gray-300 md:hidden">
+                              className="inline-flex items-center justify-center p-1.5 rounded-xl text-neutral-400 hover:text-white md:hidden">
                               {!isListening ? (
-                                <MicIcon className="h-5 w-5" />
+                                <MicIcon className="h-4 w-4" />
                               ) : (
                                 <div className="relative">
-                                  <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-red-400 opacity-75"></span>
-                                  <MicIcon className="h-5 w-5" />
+                                  <span className="animate-ping absolute inline-flex h-2.5 w-2.5 rounded-full bg-[#EF4444] opacity-75"></span>
+                                  <MicIcon className="h-4 w-4 text-[#EF4444]" />
                                 </div>
                               )}
                             </button>
@@ -1062,9 +1069,9 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                             <button
                               type="button"
                               onClick={stopStreamingRequest}
-                              className="text-gray-800 dark:text-gray-300 border border-gray-300 dark:border-[#404040] rounded-md p-1">
-                              <StopCircleIcon className="size-5" />
-                            </button>{" "}
+                              className="text-rose-400 bg-rose-500/10 border border-rose-500/20 hover:bg-rose-500/20 rounded-xl p-2 transition-all">
+                              <StopCircleIcon className="size-4" />
+                            </button>
                           </Tooltip>
                         ) : (
                           <div className="inline-flex items-center gap-2">
@@ -1073,8 +1080,8 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                 <button
                                   type="button"
                                   onClick={stopStreamingRequest}
-                                  className="text-gray-800 dark:text-gray-300 border border-gray-300 dark:border-[#404040] rounded-md p-1">
-                                  <StopCircleIcon className="size-5" />
+                                  className="text-rose-400 bg-rose-500/10 border border-rose-500/20 hover:bg-rose-500/20 rounded-xl p-2 transition-all">
+                                  <StopCircleIcon className="size-4" />
                                 </button>
                               </Tooltip>
                             )}
@@ -1088,32 +1095,12 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                 <button
                                   type="submit"
                                   disabled={isSending && !enableMessageQueue}
-                                  className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-gray-900 text-white transition hover:bg-black disabled:opacity-60 dark:bg-white dark:text-black dark:hover:bg-gray-100">
+                                  className="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-white text-black transition hover:bg-neutral-200 active:scale-95 disabled:opacity-50 shadow-[0_0_15px_rgba(255,255,255,0.25)]">
                                   <ArrowUp className="h-4 w-4" />
                                 </button>
                               </Tooltip>
                             ) : (
-                              <Dropdown.Button
-                                htmlType="submit"
-                                disabled={isSending && !enableMessageQueue}
-                                className="!justify-end !w-auto"
-                                icon={
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    className="w-5 h-5"
-                                    viewBox="0 0 24 24">
-                                    <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      d="m19.5 8.25-7.5 7.5-7.5-7.5"
-                                    />
-                                  </svg>
-                                }
+                              <Dropdown
                                 menu={{
                                   items: [
                                     {
@@ -1141,27 +1128,30 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                                       )
                                     }
                                   ]
-                                }}>
-                                <div className="inline-flex gap-2">
-                                  {sendWhenEnter ? (
-                                    <svg
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      fill="none"
-                                      stroke="currentColor"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      strokeWidth="2"
-                                      className="h-5 w-5"
-                                      viewBox="0 0 24 24">
-                                      <path d="M9 10L4 15 9 20"></path>
-                                      <path d="M20 4v7a4 4 0 01-4 4H4"></path>
-                                    </svg>
-                                  ) : null}
-                                  {isSending && enableMessageQueue
-                                    ? t("form.queue.add", "Queue")
-                                    : t("common:submit")}
+                                }}
+                                trigger={["click"]}
+                                placement="topRight">
+                                <div className="inline-flex items-center rounded-xl overflow-hidden shadow-[0_0_18px_rgba(255,255,255,0.25)] bg-white text-black font-medium">
+                                  <button
+                                    type="submit"
+                                    disabled={isSending && !enableMessageQueue}
+                                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-medium hover:bg-neutral-200 active:scale-95 transition-all disabled:opacity-50">
+                                    <Send className="h-3.5 w-3.5 text-black" />
+                                    <span>
+                                      {isSending && enableMessageQueue
+                                        ? t("form.queue.add", "Queue")
+                                        : t("common:submit", "Submit")}
+                                    </span>
+                                  </button>
+                                  <div className="h-3.5 w-px bg-black/20" />
+                                  <button
+                                    type="button"
+                                    aria-label="Submit options"
+                                    className="px-1.5 py-1.5 hover:bg-black/10 transition-colors">
+                                    <ChevronDown className="h-3.5 w-3.5 text-black" />
+                                  </button>
                                 </div>
-                              </Dropdown.Button>
+                              </Dropdown>
                             )}
                           </div>
                         )}

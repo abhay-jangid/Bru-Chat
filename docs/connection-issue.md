@@ -71,4 +71,4 @@ _This will allow connections from any origin. Hopefully, this will resolve the c
 
 
 
-If you still face any issues, feel free to contact us [here](https://github.com/n4ze3m/page-assist/issues/new), and we will be happy to help you out.
+If you still face any issues, feel free to contact us [here](https://github.com/abhay-jangid/bru-chat/issues/new), and we will be happy to help you out.

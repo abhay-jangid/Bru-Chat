@@ -6,14 +6,14 @@ Thank you for your interest in contributing to Page Assist! We welcome contribut
 
 1. **Fork the repository**
 
-   To start contributing, you'll need to fork the [Page Assist repository](https://github.com/n4ze3m/page-assist) by clicking the "Fork" button at the top right of the page.
+   To start contributing, you'll need to fork the [Bru Chat repository](https://github.com/abhay-jangid/bru-chat) by clicking the "Fork" button at the top right of the page.
 
 2. **Clone your forked repository**
 
    Once you have your own fork, clone it to your local machine:
 
    ```
-   git clone https://github.com/YOUR-USERNAME/page-assist.git
+   git clone https://github.com/YOUR-USERNAME/bru-chat.git
    ```
 
 3. **Install dependencies**

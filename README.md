@@ -94,7 +94,7 @@ Bru Chat is built using [WXT](https://wxt.dev/), React, TypeScript, Tailwind CSS
 ### Local Development
 ```bash
 # Clone the repository
-git clone https://github.com/bru-chat/bru-chat.git
+git clone https://github.com/abhay-jangid/bru-chat.git
 cd bru-chat
 
 # Install dependencies

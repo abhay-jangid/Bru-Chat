@@ -1,14 +1,8 @@
 import React, { useState } from "react"
-
 import { Sidebar } from "../Option/Sidebar"
-import { Drawer, Tooltip } from "antd"
-
 import { useTranslation } from "react-i18next"
-
 import { CurrentChatModelSettings } from "../Common/Settings/CurrentChatModelSettings"
 import { Header } from "./Header"
-import { EraserIcon, XIcon } from "lucide-react"
-// import { PageAssitDatabase } from "@/db/"
 import { useMessageOption } from "@/hooks/useMessageOption"
 import {
   useChatShortcuts,
@@ -16,16 +10,25 @@ import {
 } from "@/hooks/keyboard/useKeyboardShortcuts"
 import { useQueryClient } from "@tanstack/react-query"
 import { useStoreChatModelSettings } from "@/store/model"
-import { PageAssistDatabase } from "@/db/dexie/chat"
 import { useMigration } from "../../hooks/useMigration"
 import { useStorage } from "@plasmohq/storage/hook"
+import { VideoBackground } from "../Common/VideoBackground"
 
 export default function OptionLayout({
   children
 }: {
   children: React.ReactNode
 }) {
-  const [sidebarOpen, setSidebarOpen] = useState(false)
+  // Single, clean toggle state persisted in localStorage, defaulting to false (closed)
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(() => {
+    try {
+      const saved = localStorage.getItem("bru_chat_sidebar_open")
+      return saved !== null ? saved === "true" : false
+    } catch {
+      return false
+    }
+  })
+
   const { t } = useTranslation(["option", "common", "settings"])
   const [openModelSettings, setOpenModelSettings] = useState(false)
   useMigration()
@@ -47,6 +50,16 @@ export default function OptionLayout({
   const queryClient = useQueryClient()
   const { setSystemPrompt } = useStoreChatModelSettings()
 
+  const setSidebarOpen = (val: boolean | ((prev: boolean) => boolean)) => {
+    setIsSidebarOpen((prev) => {
+      const next = typeof val === "function" ? val(prev) : val
+      try {
+        localStorage.setItem("bru_chat_sidebar_open", String(next))
+      } catch {}
+      return next
+    })
+  }
+
   // Create toggle function for sidebar
   const toggleSidebar = () => {
     setSidebarOpen((prev) => !prev)
@@ -57,79 +70,52 @@ export default function OptionLayout({
   useSidebarShortcuts(toggleSidebar, true)
 
   return (
-    <div className="flex h-full w-full">
-      <main className="relative h-dvh w-full">
-        <div className="relative z-20 w-full">
+    <div className="flex h-screen w-full bg-[#070709] overflow-hidden relative select-none">
+      {/* Ambient Looping Video Background Layer */}
+      <VideoBackground src="BG.mp4" />
+
+      {/* Unified Single Sidebar Component (Desktop & Responsive Mobile Overlay) */}
+      {isSidebarOpen && (
+        <>
+          {/* Mobile Backdrop Overlay */}
+          <div
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-30 lg:hidden"
+            onClick={() => setSidebarOpen(false)}
+          />
+          <aside className="fixed lg:relative inset-y-0 left-0 flex flex-col w-80 h-[calc(100vh-2rem)] my-4 ml-4 shrink-0 rounded-2xl glass-panel z-40 lg:z-20 overflow-hidden shadow-[0_16px_40px_rgba(0,0,0,0.5)] transition-all duration-300">
+            <Sidebar
+              isOpen={isSidebarOpen}
+              onClose={() => setSidebarOpen(false)}
+              setMessages={setMessages}
+              setHistory={setHistory}
+              setHistoryId={setHistoryId}
+              setSelectedModel={setSelectedModel}
+              setSelectedSystemPrompt={setSelectedSystemPrompt}
+              clearChat={clearChat}
+              historyId={historyId}
+              setSystemPrompt={setSystemPrompt}
+              temporaryChat={temporaryChat}
+              history={history}
+              setContext={setContextFiles}
+              selectedModel={selectedModel}
+            />
+          </aside>
+        </>
+      )}
+
+      {/* Main Workspace Canvas - Expands to 100% width when sidebar is closed */}
+      <main className="relative flex flex-col flex-1 h-screen overflow-hidden z-10 w-full min-w-0 transition-all duration-300">
+        <div className="p-4 pb-0 w-full z-20 shrink-0">
           <Header
             setSidebarOpen={setSidebarOpen}
             setOpenModelSettings={setOpenModelSettings}
             saveTemporaryChat={saveTemporaryChat}
           />
         </div>
-        {/* <div className="relative flex h-full flex-col items-center"> */}
-        {children}
-        {/* </div> */}
-        <Drawer
-          title={
-            <div className="flex items-center justify-between">
-              {t("sidebarTitle")}
 
-              <div className="flex items-center space-x-3">
-                <Tooltip
-                  title={t(
-                    "settings:generalSettings.system.deleteChatHistory.label"
-                  )}
-                  placement="right">
-                  <button
-                    onClick={async () => {
-                      const confirm = window.confirm(
-                        t(
-                          "settings:generalSettings.system.deleteChatHistory.confirm"
-                        )
-                      )
-
-                      if (confirm) {
-                        const db = new PageAssistDatabase()
-                        await db.deleteAllChatHistory()
-                        await queryClient.invalidateQueries({
-                          queryKey: ["fetchChatHistory"]
-                        })
-                        clearChat()
-                      }
-                    }}
-                    className="text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-100">
-                    <EraserIcon className="size-5" />
-                  </button>
-                </Tooltip>
-                <button
-                  onClick={() => setSidebarOpen(false)}
-                  className="md:hidden">
-                  <XIcon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
-                </button>
-              </div>
-            </div>
-          }
-          placement={sidebarPosition === "right" ? "right" : "left"}
-          closeIcon={null}
-          onClose={() => setSidebarOpen(false)}
-          open={sidebarOpen}>
-          <Sidebar
-            isOpen={sidebarOpen}
-            onClose={() => setSidebarOpen(false)}
-            setMessages={setMessages}
-            setHistory={setHistory}
-            setHistoryId={setHistoryId}
-            setSelectedModel={setSelectedModel}
-            setSelectedSystemPrompt={setSelectedSystemPrompt}
-            clearChat={clearChat}
-            historyId={historyId}
-            setSystemPrompt={setSystemPrompt}
-            temporaryChat={temporaryChat}
-            history={history}
-            setContext={setContextFiles}
-            selectedModel={selectedModel}
-          />
-        </Drawer>
+        <div className="flex-1 relative overflow-hidden flex flex-col">
+          {children}
+        </div>
 
         <CurrentChatModelSettings
           open={openModelSettings}
@@ -141,3 +127,4 @@ export default function OptionLayout({
     </div>
   )
 }
+

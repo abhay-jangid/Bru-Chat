@@ -659,7 +659,7 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
         <div className="relative flex w-full flex-row justify-center gap-2 lg:w-4/5">
           <div
             data-istemporary-chat={temporaryChat}
-            className={` bg-neutral-50  dark:bg-[#262626] relative w-full max-w-[48rem] p-1 backdrop-blur-lg duration-100 border border-gray-300 rounded-t-xl  dark:border-[#404040] data-[istemporary-chat='true']:bg-violet-100 data-[istemporary-chat='true']:border-violet-300 data-[istemporary-chat='true']:dark:bg-black data-[istemporary-chat='true']:dark:border-[#404040]`}>
+            className={`glass-dock rounded-2xl relative w-full p-2.5 duration-100 data-[istemporary-chat='true']:border-amber-500/40`}>
             {enableMessageQueue &&
               optimizeQueueForSmallScreen &&
               hasQueuedMessages && (
@@ -803,7 +803,7 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                       <textarea
                         onKeyDown={(e) => handleKeyDown(e)}
                         ref={textareaRef}
-                        className="px-2 py-2 w-full resize-none bg-transparent focus-within:outline-none focus:ring-0 focus-visible:ring-0 ring-0 dark:ring-0 border-0 dark:text-gray-100"
+                        className="px-2 py-2 w-full resize-none bg-transparent focus-within:outline-none focus:ring-0 focus-visible:ring-0 ring-0 dark:ring-0 border-0 text-gray-900 dark:text-gray-100 placeholder:text-neutral-400 placeholder:dark:text-neutral-500"
                         onPaste={handlePaste}
                         rows={1}
                         style={{ height: "40px", minHeight: "40px" }}

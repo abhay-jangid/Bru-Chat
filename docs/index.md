@@ -36,4 +36,4 @@ Support us on Ko-fi: [https://ko-fi.com/n4ze3m](https://ko-fi.com/n4ze3m)
 
 Page Assist is maintained by [@n4ze3m](https://x.com/n4ze3m) and our wonderful community of contributors.
 
-![Contributors](https://contrib.rocks/image?repo=n4ze3m/page-assist)
+![Contributors](https://contrib.rocks/image?repo=abhay-jangid/bru-chat)

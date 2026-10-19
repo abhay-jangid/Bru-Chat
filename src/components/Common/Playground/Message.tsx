@@ -311,7 +311,7 @@ const PlaygroundMessageComponent = (props: Props) => {
           {props.isBot ? (
             !props.modelImage ? (
               <div className="relative flex h-7 w-7 items-center justify-center rounded-sm p-1 text-white text-opacity-100">
-                <div className="absolute h-8 w-8 rounded-full bg-gradient-to-r from-green-300 to-purple-400"></div>
+                <div className="absolute h-8 w-8 rounded-full bg-gradient-to-br from-neutral-200 to-neutral-500 border border-white/20 shadow-sm"></div>
               </div>
             ) : (
               <Avatar
@@ -322,7 +322,7 @@ const PlaygroundMessageComponent = (props: Props) => {
             )
           ) : !props.userAvatar ? (
             <div className="relative flex h-7 w-7 items-center justify-center rounded-sm p-1 text-white text-opacity-100">
-              <div className="absolute h-8 w-8 rounded-full bg-gradient-to-r from-blue-400 to-blue-600"></div>
+              <div className="absolute h-8 w-8 rounded-full bg-gradient-to-br from-neutral-600 to-neutral-900 border border-white/20 shadow-sm"></div>
             </div>
           ) : (
             props.userAvatar
@@ -510,7 +510,7 @@ const PlaygroundMessageComponent = (props: Props) => {
                         })
                       }
                     }}
-                    className="flex h-6 w-6 items-center justify-center rounded-full border border-gray-300 bg-gray-100 transition-colors duration-200 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:border-none dark:bg-[#242424] dark:hover:bg-gray-700">
+                    className="glass-control flex h-6 w-6 items-center justify-center rounded-full text-neutral-400 hover:text-white transition-all">
                     {!isSpeaking ? (
                       <Volume2Icon className="h-3 w-3 text-gray-400 group-hover:text-gray-500" />
                     ) : (
@@ -535,7 +535,7 @@ const PlaygroundMessageComponent = (props: Props) => {
                         setIsBtnPressed(false)
                       }, 2000)
                     }}
-                    className="flex h-6 w-6 items-center justify-center rounded-full border border-gray-300 bg-gray-100 transition-colors duration-200 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:border-none dark:bg-[#242424] dark:hover:bg-gray-700">
+                    className="glass-control flex h-6 w-6 items-center justify-center rounded-full text-neutral-400 hover:text-white transition-all">
                     {!isBtnPressed ? (
                       <CopyIcon className="h-3 w-3 text-gray-400 group-hover:text-gray-500" />
                     ) : (
@@ -555,7 +555,7 @@ const PlaygroundMessageComponent = (props: Props) => {
                       title={t("generationInfo")}>
                       <button
                         aria-label={t("generationInfo")}
-                        className="flex h-6 w-6 items-center justify-center rounded-full border border-gray-300 bg-gray-100 transition-colors duration-200 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:border-none dark:bg-[#242424] dark:hover:bg-gray-700">
+                        className="glass-control flex h-6 w-6 items-center justify-center rounded-full text-neutral-400 hover:text-white transition-all">
                         <InfoIcon className="h-3 w-3 text-gray-400 group-hover:text-gray-500" />
                       </button>
                     </Popover>
@@ -568,7 +568,7 @@ const PlaygroundMessageComponent = (props: Props) => {
                       <button
                         aria-label={t("regenerate")}
                         onClick={props.onRengerate}
-                        className="flex h-6 w-6 items-center justify-center rounded-full border border-gray-300 bg-gray-100 transition-colors duration-200 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:border-none dark:bg-[#242424] dark:hover:bg-gray-700">
+                        className="glass-control flex h-6 w-6 items-center justify-center rounded-full text-neutral-400 hover:text-white transition-all">
                         <RotateCcw className="h-3 w-3 text-gray-400 group-hover:text-gray-500" />
                       </button>
                     </Tooltip>
@@ -579,7 +579,7 @@ const PlaygroundMessageComponent = (props: Props) => {
                       <button
                         aria-label={t("newBranch")}
                         onClick={() => props?.onNewBranch?.(props.actionIndex)}
-                        className="flex h-6 w-6 items-center justify-center rounded-full border border-gray-300 bg-gray-100 transition-colors duration-200 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:border-none dark:bg-[#242424] dark:hover:bg-gray-700">
+                        className="glass-control flex h-6 w-6 items-center justify-center rounded-full text-neutral-400 hover:text-white transition-all">
                         <GitBranchIcon className="h-3 w-3 text-gray-400 group-hover:text-gray-500" />
                       </button>
                     </Tooltip>
@@ -590,7 +590,7 @@ const PlaygroundMessageComponent = (props: Props) => {
                       <button
                         aria-label={t("continue")}
                         onClick={props?.onContinue}
-                        className="flex h-6 w-6 items-center justify-center rounded-full border border-gray-300 bg-gray-100 transition-colors duration-200 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:border-none dark:bg-[#242424] dark:hover:bg-gray-700">
+                        className="glass-control flex h-6 w-6 items-center justify-center rounded-full text-neutral-400 hover:text-white transition-all">
                         <PlayCircle className="h-3 w-3 text-gray-400 group-hover:text-gray-500" />
                       </button>
                     </Tooltip>
@@ -603,7 +603,7 @@ const PlaygroundMessageComponent = (props: Props) => {
                   <button
                     onClick={() => setEditMode(true)}
                     aria-label={t("edit")}
-                    className="flex h-6 w-6 items-center justify-center rounded-full border border-gray-300 bg-gray-100 transition-colors duration-200 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:border-none dark:bg-[#242424] dark:hover:bg-gray-700">
+                    className="glass-control flex h-6 w-6 items-center justify-center rounded-full text-neutral-400 hover:text-white transition-all">
                     <Pen className="h-3 w-3 text-gray-400 group-hover:text-gray-500" />
                   </button>
                 </Tooltip>

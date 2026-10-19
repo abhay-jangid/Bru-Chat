@@ -354,15 +354,15 @@ export const EmptySidePanel = () => {
   if (!checkOllamaStatus) {
     return (
       <div className="mx-auto sm:max-w-md px-4 mt-10">
-        <div className="rounded-lg justify-center items-center flex flex-col border dark:border-gray-700 p-8 bg-white dark:bg-[#262626] shadow-sm">
+        <div className="glass-panel rounded-3xl p-8 shadow-2xl justify-center items-center flex flex-col">
           <div className="inline-flex items-center space-x-2">
-            <p className="dark:text-gray-400 text-gray-900">
+            <p className="text-neutral-200">
               <span>👋</span>
               {t("welcome")}
             </p>
           </div>
           {ollamaStatus === "pending" && (
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            <Loader2 className="mr-2 h-4 w-4 animate-spin text-neutral-300 mt-2" />
           )}
           {ollamaStatus === "success" && ollamaInfo.isOk && renderSection()}
         </div>
@@ -372,19 +372,19 @@ export const EmptySidePanel = () => {
 
   return (
     <div className="mx-auto sm:max-w-lg px-4 mt-10">
-      <div className="rounded-lg  justify-center items-center flex flex-col border border-gray-300 dark:border-gray-700 p-8 bg-white dark:bg-[#262626] shadow-sm">
+      <div className="glass-panel rounded-3xl p-8 shadow-2xl justify-center items-center flex flex-col">
         {(ollamaStatus === "pending" || isRefetching) && (
           <div className="inline-flex items-center space-x-2">
-            <div className="w-3 h-3 bg-blue-500 rounded-full animate-bounce"></div>
-            <p className="dark:text-gray-400 text-gray-900">
+            <div className="w-2.5 h-2.5 bg-white rounded-full animate-pulse shadow-[0_0_10px_rgba(255,255,255,0.8)]"></div>
+            <p className="text-neutral-300">
               {t("ollamaState.searching")}
             </p>
           </div>
         )}
         {!isRefetching && ollamaStatus === "success" && ollamaInfo.isOk && (
-          <div className="inline-flex  items-center space-x-2">
-            <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-            <p className="dark:text-gray-400 text-gray-900">
+          <div className="inline-flex items-center space-x-2">
+            <div className="w-2.5 h-2.5 bg-emerald-400 rounded-full shadow-[0_0_10px_rgba(52,211,153,0.6)]"></div>
+            <p className="text-neutral-200 font-medium">
               {t("ollamaState.running")}
             </p>
           </div>
@@ -393,10 +393,10 @@ export const EmptySidePanel = () => {
         {!isRefetching && ollamaStatus === "success" && renderSection()}
 
         {!isRefetching && ollamaStatus === "success" && !ollamaInfo.isOk && (
-          <div className="mt-4 flex flex-col space-y-2 justify-center items-center w-full">
+          <div className="mt-4 flex flex-col space-y-3 justify-center items-center w-full">
             <div className="inline-flex items-center space-x-2">
-              <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-              <p className="text-xs text-red-500">
+              <div className="w-2.5 h-2.5 bg-rose-500 rounded-full shadow-[0_0_10px_rgba(244,63,94,0.6)]"></div>
+              <p className="text-xs text-rose-400 font-medium">
                 {t("ollamaState.notRunning")}
               </p>
               <button
@@ -404,36 +404,36 @@ export const EmptySidePanel = () => {
                   saveOllamaURL(ollamaURL)
                   refetch()
                 }}
-                className="inline-flex items-center text-xs text-blue-600 dark:text-blue-400 hover:underline">
+                className="inline-flex items-center text-xs text-neutral-300 hover:text-white font-medium transition-colors">
                 <RotateCcw className="h-3 w-3 mr-1" />
                 {t("common:retry")}
               </button>
             </div>
 
             <input
-              className="bg-gray-100 dark:bg-black dark:text-gray-100 text-sm rounded-md px-3 py-1.5 w-full"
+              className="bg-black/40 border border-white/10 text-neutral-100 placeholder-neutral-500 text-sm rounded-xl px-3 py-1.5 w-full focus:outline-none focus:border-white/30 transition-all font-mono"
               type="url"
               value={ollamaURL}
               onChange={(e) => setOllamaURL(e.target.value)}
             />
 
             {ollamaURL && cleanUrl(ollamaURL) !== "http://127.0.0.1:11434" && (
-              <p className="text-xs text-gray-700 dark:text-gray-400 text-center">
+              <p className="text-xs text-neutral-400 text-center">
                 <Trans
                   i18nKey="playground:ollamaState.connectionError"
                   components={{
                     anchor: (
                       <a
-                        href="https://github.com/n4ze3m/page-assist/blob/main/docs/connection-issue.md"
+                        href="https://github.com/abhay-jangid/bru-chat/blob/main/docs/connection-issue.md"
                         target="__blank"
-                        className="text-blue-600 dark:text-blue-400"></a>
+                        className="text-neutral-200 hover:text-white underline"></a>
                     )
                   }}
                 />
               </p>
             )}
 
-            <p className="text-xs text-gray-700 dark:text-gray-400 text-center">
+            <p className="text-xs text-neutral-400 text-center">
               <Trans
                 i18nKey="playground:ollamaState.noOllamaHint"
                 components={{
@@ -446,7 +446,7 @@ export const EmptySidePanel = () => {
                           )
                         })
                       }}
-                      className="text-blue-600 dark:text-blue-400 underline"></button>
+                      className="text-neutral-200 hover:text-white underline"></button>
                   )
                 }}
               />

@@ -72,17 +72,17 @@ export const SidepanelHeader = ({
   return (
     <div
       data-istemporary-chat={temporaryChat}
-      className=" px-3 justify-between bg-white dark:bg-[#1a1a1a] border-b border-gray-300 dark:border-gray-700 py-4 items-center absolute top-0 z-10 flex h-14 w-full data-[istemporary-chat='true']:bg-violet-100 data-[istemporary-chat='true']:border-violet-300 data-[istemporary-chat='true']:dark:bg-black data-[istemporary-chat='true']:dark:border-gray-700">
-      <div className="focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700 flex items-center dark:text-white">
+      className="px-3 justify-between glass-panel border-b border-white/10 py-4 items-center absolute top-0 z-10 flex h-14 w-full data-[istemporary-chat='true']:border-amber-500/40">
+      <div className="focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 flex items-center dark:text-white">
         <img
           className="h-6 w-auto"
           src={logoImage}
           alt="Bru Chat"
         />
-        <span className="ml-1 text-sm font-semibold">Bru Chat</span>
+        <span className="ml-1.5 text-sm font-semibold tracking-tight">Bru Chat</span>
       </div>
 
-      <div className="flex items-center space-x-3">
+      <div className="flex items-center space-x-1.5">
         {webuiBtnSidePanel ? (
           <Tooltip title={t("tooltip.openwebui")}>
             <button
@@ -90,8 +90,8 @@ export const SidepanelHeader = ({
                 const url = browser.runtime.getURL("/options.html")
                 browser.tabs.create({ url })
               }}
-              className="flex items-center space-x-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700">
-              <MessageSquareShareIcon className="size-4 text-gray-500 dark:text-gray-400" />
+              className="flex items-center p-1.5 rounded-xl text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white bg-white/[0.05] hover:bg-white/[0.12] border border-white/[0.08] transition-all duration-200">
+              <MessageSquareShareIcon className="size-4" />
             </button>
           </Tooltip>
         ) : null}
@@ -107,8 +107,8 @@ export const SidepanelHeader = ({
             onClick={() => {
               clearChat()
             }}
-            className="flex items-center space-x-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700">
-            <PlusSquare className="size-4 text-gray-500 dark:text-gray-400" />
+            className="flex items-center p-1.5 rounded-xl text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white bg-white/[0.05] hover:bg-white/[0.12] border border-white/[0.08] transition-all duration-200">
+            <PlusSquare className="size-4" />
           </button>
         )}
 
@@ -119,7 +119,7 @@ export const SidepanelHeader = ({
               notification.error({
                 message: "Error",
                 description:
-                  "Page Assist can't save chat in Firefox Private Mode. Temporary chat is enabled by default. More fixes coming soon."
+                  "Bru Chat can't save chat in Firefox Private Mode. Temporary chat is enabled by default. More fixes coming soon."
               })
               return
             }
@@ -130,8 +130,8 @@ export const SidepanelHeader = ({
             }
           }}
           data-istemporary-chat={temporaryChat}
-          className="flex items-center text-gray-500 dark:text-gray-400 space-x-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700 rounded-full p-1 data-[istemporary-chat='true']:bg-violet-200 data-[istemporary-chat='true']:text-violet-700 data-[istemporary-chat='true']:dark:bg-violet-900 data-[istemporary-chat='true']:dark:text-violet-300">
-          <BsIncognito className="size-4 " />
+          className="flex items-center p-1.5 rounded-xl text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white bg-white/[0.05] hover:bg-white/[0.12] border border-white/[0.08] transition-all duration-200 data-[istemporary-chat='true']:bg-violet-500/20 data-[istemporary-chat='true']:text-violet-600 data-[istemporary-chat='true']:dark:text-violet-300">
+          <BsIncognito className="size-4" />
         </button>
 
         {history.length > 0 && (
@@ -140,8 +140,8 @@ export const SidepanelHeader = ({
             onClick={() => {
               setHistory([])
             }}
-            className="flex items-center space-x-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700">
-            <EraserIcon className="size-4 text-gray-500 dark:text-gray-400" />
+            className="flex items-center p-1.5 rounded-xl text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white bg-white/[0.05] hover:bg-white/[0.12] border border-white/[0.08] transition-all duration-200">
+            <EraserIcon className="size-4" />
           </button>
         )}
         <Tooltip title={t("tooltip.history")}>
@@ -149,8 +149,8 @@ export const SidepanelHeader = ({
             onClick={() => {
               setSidebarOpen(true)
             }}
-            className="flex items-center space-x-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-700">
-            <HistoryIcon className="size-4 text-gray-500 dark:text-gray-400" />
+            className="flex items-center p-1.5 rounded-xl text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white bg-white/[0.05] hover:bg-white/[0.12] border border-white/[0.08] transition-all duration-200">
+            <HistoryIcon className="size-4" />
           </button>
         </Tooltip>
         <PromptSelect
@@ -158,20 +158,22 @@ export const SidepanelHeader = ({
           setSelectedSystemPrompt={setSelectedSystemPrompt}
           setSelectedQuickPrompt={setSelectedQuickPrompt}
           iconClassName="size-4"
-          className="text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+          className="p-1.5 rounded-xl text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white bg-white/[0.05] hover:bg-white/[0.12] border border-white/[0.08] transition-all duration-200"
         />
         <ExecutionModeToggle compact />
         {!hideCurrentChatModelSettings && (
           <Tooltip title={t("common:currentChatModelSettings")}>
             <button
               onClick={() => setOpenModelSettings(true)}
-              className="text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
+              className="p-1.5 rounded-xl text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white bg-white/[0.05] hover:bg-white/[0.12] border border-white/[0.08] transition-all duration-200">
               <BrainCog className="size-4" />
             </button>
           </Tooltip>
         )}
-        <Link to="/settings">
-          <CogIcon className="size-4 text-gray-500 dark:text-gray-400" />
+        <Link
+          to="/settings"
+          className="p-1.5 rounded-xl text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white bg-white/[0.05] hover:bg-white/[0.12] border border-white/[0.08] transition-all duration-200 inline-flex items-center">
+          <CogIcon className="size-4" />
         </Link>
       </div>
       <CurrentChatModelSettings

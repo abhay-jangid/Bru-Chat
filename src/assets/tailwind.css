@@ -13,11 +13,142 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --brand-bg: #070709;
+  --brand-panel: rgba(18, 18, 22, 0.55);
+  --brand-border: rgba(255, 255, 255, 0.18);
+  --brand-primary: #FFFFFF;
+  --brand-secondary: #E4E4E7;
+  --brand-heading: #F4F4F5;
+  --brand-muted: #A1A1AA;
+  --brand-subtle: #71717A;
+}
+
+html.dark,
+body.dark,
+.dark {
+  background-color: #070709 !important;
+  color: #F4F4F5;
+}
+
+body {
+  min-height: 100vh;
+  background-color: #070709;
+}
+
 @layer utilities {
   .mask-bottom-fade {
     mask-image: linear-gradient(0deg, transparent 0, #000 160px);
     -webkit-mask-image: linear-gradient(0deg, transparent 0, #000 160px);
   }
+}
+
+/* Specular Frosted Glass Base */
+.glass-card, .glass-panel {
+  background: rgba(18, 18, 22, 0.55);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 
+    0 16px 40px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 0 16px rgba(255, 255, 255, 0.04);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Top Horizontal Specular Glint */
+.glass-card::before, .glass-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.65),
+    transparent
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Left Vertical Ambient Edge */
+.glass-card::after, .glass-panel::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.5),
+    transparent 60%,
+    rgba(255, 255, 255, 0.15)
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Secondary Button / Pill Glass */
+.glass-control {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.glass-control:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 4px 16px rgba(0,0,0,0.3);
+}
+
+.glass-glow {
+  box-shadow: 0 0 25px -5px rgba(255, 255, 255, 0.15);
+}
+
+.glass-dock {
+  background: rgba(18, 18, 22, 0.65);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 
+    0 24px 48px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.08);
+  position: relative;
+}
+
+/* Dark glass styles for Ant Design Select in Header */
+.header-glass-select .ant-select-selector {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 0.75rem !important;
+  color: #F4F4F5 !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+  transition: all 0.2s ease !important;
+}
+.header-glass-select .ant-select-selector:hover {
+  background-color: rgba(255, 255, 255, 0.12) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+}
+.header-glass-select .ant-select-selection-item {
+  color: #F4F4F5 !important;
+}
+.header-glass-select .ant-select-arrow {
+  color: #A1A1AA !important;
+}
+.header-glass-select .ant-select-selection-placeholder {
+  color: #71717A !important;
 }
 
 .ant-select-selection-search-input {
@@ -389,3 +520,10 @@
   }
   ------------------------------------------ */
 }
+
+@media (prefers-reduced-motion: reduce) {
+  video {
+    display: none;
+  }
+}
+

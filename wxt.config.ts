@@ -98,6 +98,15 @@ export default defineConfig({
     permissions:
       process.env.TARGET === "firefox"
         ? firefoxMV2Permissions
-        : chromeMV3Permissions
+        : chromeMV3Permissions,
+    web_accessible_resources:
+      process.env.TARGET !== "firefox"
+        ? [
+            {
+              resources: ["BG.mp4"],
+              matches: ["<all_urls>"]
+            }
+          ]
+        : ["BG.mp4"]
   }
 }) as any

@@ -107,7 +107,7 @@ export const exportPageAssistData = async (
 
   const a = document.createElement("a")
   a.href = url
-  a.download = `page-assist-${new Date().toISOString()}.json`
+  a.download = `bru-chat-${new Date().toISOString()}.json`
   a.click()
   URL.revokeObjectURL(url)
 }

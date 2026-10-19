@@ -26,10 +26,13 @@ import {
   Trash2Icon,
   Loader2,
   ChevronDown,
+  ChevronLeft,
+  Cloud,
   GitBranch,
   Sparkles,
   FolderPlus,
-  Folder
+  Folder,
+  EraserIcon
 } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
@@ -614,16 +617,17 @@ export const Sidebar = ({
   }
 
   const renderChatRow = (chat: any) => {
+    const isCurrent = historyId === chat.id
     return (
       <div
         key={chat.id}
         draggable
         onDragStart={() => handleDragStart(chat.id)}
         onDragEnd={handleDragEnd}
-        className={`flex py-2 px-2 items-center gap-3 relative rounded-md truncate hover:pr-4 group transition-opacity duration-300 ease-in-out border ${
-          historyId === chat.id
-            ? "bg-gray-200 dark:bg-[#454242] border-gray-400 dark:border-gray-600 text-gray-900 dark:text-gray-100"
-            : "bg-gray-50 dark:bg-[#242424] dark:text-gray-100 text-gray-800 border-gray-300 dark:border-[#404040] hover:bg-gray-200 dark:hover:bg-[#2a2a2a]"
+        className={`flex py-2.5 px-3 items-center gap-2.5 relative rounded-xl truncate hover:pr-3 group transition-all duration-200 border ${
+          isCurrent
+            ? "bg-white/10 border-l-2 border-white border-t-transparent border-r-transparent border-b-transparent text-white font-medium shadow-sm"
+            : "text-neutral-400 hover:text-neutral-100 hover:bg-white/[0.05] border-transparent transition-colors"
         }`}
         data-chat-id={chat.id}>
         {chat?.message_source === "copilot" && (
@@ -790,35 +794,191 @@ export const Sidebar = ({
     }
   }
 
+  const handleDeleteAllHistory = async () => {
+    const confirmDelete = window.confirm(
+      t("settings:generalSettings.system.deleteChatHistory.confirm", {
+        defaultValue: "Are you sure you want to delete all chat history?"
+      })
+    )
+
+    if (confirmDelete) {
+      const db = new PageAssistDatabase()
+      await db.deleteAllChatHistory()
+      await client.invalidateQueries({
+        queryKey: ["fetchChatHistory"]
+      })
+      clearChat()
+    }
+  }
+
   return (
     <div
-      className={`overflow-y-auto z-99 ${temporaryChat ? "pointer-events-none opacity-50" : ""}`}>
-      <div className="sticky top-0 z-10 my-3">
-        <div className="relative">
-          <Input
-            placeholder={t("common:search")}
-            value={searchQuery}
-            onChange={handleSearchChange}
-            prefix={<SearchIcon className="w-4 h-4 text-gray-400" />}
-            suffix={
-              searchQuery ? (
-                <button
-                  onClick={clearSearch}
-                  className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
-                  ✕
-                </button>
-              ) : null
-            }
-            className="w-full rounded-md border border-gray-300 dark:border-gray-700 dark:bg-[#232222]"
-          />
+      className={`h-full flex flex-col p-3 overflow-y-auto z-99 ${temporaryChat ? "pointer-events-none opacity-50" : ""}`}>
+      {/* Sidebar Header: Cloud Icon, Single Chat History Title, Sync, Clear All, and Collapse */}
+      <div className="flex items-center justify-between pb-3 mb-2 border-b border-white/[0.08] shrink-0">
+        <div className="flex items-center gap-2">
+          <Cloud className="w-4 h-4 text-neutral-400" />
+          <span className="text-neutral-100 font-medium text-sm tracking-tight">
+            Chat History
+          </span>
+        </div>
+        <div className="flex items-center gap-1">
+          <button
+            type="button"
+            onClick={() => {
+              client.invalidateQueries({ queryKey: ["fetchChatHistory"] })
+            }}
+            title={t("common:sync", { defaultValue: "Sync history" })}
+            className="p-1 rounded-lg text-neutral-400 hover:text-white hover:bg-white/[0.08] transition-colors">
+            <Cloud className="w-3.5 h-3.5" />
+          </button>
+          <button
+            type="button"
+            onClick={handleDeleteAllHistory}
+            title={t("settings:generalSettings.system.deleteChatHistory.label", {
+              defaultValue: "Clear all history"
+            })}
+            className="p-1 rounded-lg text-neutral-400 hover:text-rose-400 hover:bg-rose-500/10 transition-colors">
+            <EraserIcon className="w-3.5 h-3.5" />
+          </button>
+          <button
+            type="button"
+            onClick={onClose}
+            title={t("common:collapse", { defaultValue: "Collapse sidebar" })}
+            className="p-1 rounded-lg text-neutral-400 hover:text-white hover:bg-white/[0.08] transition-colors">
+            <ChevronLeft className="w-4 h-4" />
+          </button>
         </div>
       </div>
 
+      {/* Rounded Search Input: Dark neutral inset field */}
+      <div className="relative mb-3 shrink-0">
+        <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-neutral-500 pointer-events-none" />
+        <input
+          type="text"
+          placeholder="Search conversations..."
+          value={searchQuery}
+          onChange={handleSearchChange}
+          className="w-full bg-black/40 border border-white/10 focus:border-white/30 focus:outline-none rounded-xl pl-9 pr-8 py-2 text-xs text-neutral-100 placeholder-neutral-500 transition-all"
+        />
+        {searchQuery && (
+          <button
+            type="button"
+            onClick={clearSearch}
+            className="absolute right-2.5 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-white text-xs">
+            ✕
+          </button>
+        )}
+      </div>
+
+      {/* Empty State: Minimalist Monochrome Card Stack with Speech Bubble */}
       {status === "success" &&
         orderedChatHistories.length === 0 &&
         !dexiePrivateWindowError && (
-          <div className="flex justify-center items-center mt-20 overflow-hidden">
-            <Empty description={t("common:noHistory")} />
+          <div className="flex flex-col items-center justify-center flex-1 py-12 px-2 text-center select-none">
+            <div className="relative w-28 h-28 mb-3 flex items-center justify-center">
+              <div className="absolute inset-0 bg-white/[0.03] blur-xl rounded-full" />
+              <svg
+                className="w-24 h-24 relative z-10"
+                viewBox="0 0 100 100"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                {/* Background tilted card */}
+                <rect
+                  x="22"
+                  y="26"
+                  width="48"
+                  height="56"
+                  rx="8"
+                  transform="rotate(-8 22 26)"
+                  fill="#18181B"
+                  stroke="rgba(255, 255, 255, 0.12)"
+                  strokeWidth="1.5"
+                />
+                {/* Middle tilted card */}
+                <rect
+                  x="28"
+                  y="22"
+                  width="48"
+                  height="56"
+                  rx="8"
+                  transform="rotate(4 28 22)"
+                  fill="#27272A"
+                  stroke="rgba(255, 255, 255, 0.18)"
+                  strokeWidth="1.5"
+                />
+                {/* Foreground front card */}
+                <rect
+                  x="24"
+                  y="25"
+                  width="48"
+                  height="58"
+                  rx="8"
+                  fill="#3F3F46"
+                  stroke="rgba(255, 255, 255, 0.28)"
+                  strokeWidth="1.5"
+                />
+                {/* Document text lines on front card */}
+                <line
+                  x1="32"
+                  y1="38"
+                  x2="52"
+                  y2="38"
+                  stroke="rgba(255, 255, 255, 0.55)"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                />
+                <line
+                  x1="32"
+                  y1="47"
+                  x2="64"
+                  y2="47"
+                  stroke="rgba(255, 255, 255, 0.3)"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                />
+                <line
+                  x1="32"
+                  y1="56"
+                  x2="56"
+                  y2="56"
+                  stroke="rgba(255, 255, 255, 0.3)"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                />
+
+                {/* Floating monochrome speech bubble */}
+                <g filter="drop-shadow(0 4px 12px rgba(0, 0, 0, 0.6))">
+                  <path
+                    d="M56 18 C56 13.58 59.58 10 64 10 H78 C82.42 10 86 13.58 86 18 V24 C86 28.42 82.42 32 78 32 H71 L65 37 V32 C60.58 32 56 28.42 56 24 Z"
+                    fill="#27272A"
+                    stroke="rgba(255, 255, 255, 0.3)"
+                    strokeWidth="1"
+                  />
+                  <circle cx="67" cy="21" r="1.5" fill="white" />
+                  <circle cx="72" cy="21" r="1.5" fill="white" />
+                  <circle cx="77" cy="21" r="1.5" fill="white" />
+                </g>
+
+                {/* Subtle sparkle stars */}
+                <path
+                  d="M18 32 L19.5 35 L22.5 36.5 L19.5 38 L18 41 L16.5 38 L13.5 36.5 L16.5 35 Z"
+                  fill="#A1A1AA"
+                  opacity="0.6"
+                />
+                <path
+                  d="M84 50 L85 52 L87 53 L85 54 L84 56 L83 54 L81 53 L83 52 Z"
+                  fill="#A1A1AA"
+                  opacity="0.5"
+                />
+              </svg>
+            </div>
+            <h3 className="text-neutral-200 font-medium text-sm tracking-tight">
+              No conversations yet
+            </h3>
+            <p className="text-neutral-400 text-xs mt-1 max-w-[200px]">
+              Start a new chat to see your history here.
+            </p>
           </div>
         )}
 
