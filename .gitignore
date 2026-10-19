@@ -46,6 +46,7 @@ keys.json
 .tsbuildinfo
 # WXT
 .wxt
+.output
 # WebStorm
 .idea 
 
