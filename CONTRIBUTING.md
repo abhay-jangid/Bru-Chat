@@ -1,50 +1,53 @@
-# Contributing to Page Assist
+# Contributing to Bru Chat 🐾
 
-Thank you for your interest in contributing to Page Assist! We welcome contributions from anyone, whether it's reporting bugs, suggesting improvements, or submitting code changes.
+Thank you for your interest in contributing to **Bru Chat**! We welcome contributions from everyone, whether it's reporting bugs, suggesting improvements, or submitting code changes.
 
 ## Getting Started
 
 1. **Fork the repository**
 
-   To start contributing, you'll need to fork the [Bru Chat repository](https://github.com/abhay-jangid/bru-chat) by clicking the "Fork" button at the top right of the page.
+   To start contributing, fork the [Bru Chat repository](https://github.com/abhay-jangid/bru-chat) by clicking the "Fork" button at the top right of the page.
 
 2. **Clone your forked repository**
 
    Once you have your own fork, clone it to your local machine:
 
-   ```
+   ```bash
    git clone https://github.com/YOUR-USERNAME/bru-chat.git
+   cd bru-chat
    ```
 
 3. **Install dependencies**
 
-   Page Assist uses [Bun](https://bun.sh/) for dependency management. Install the required dependencies by running the following command in the project root directory:
+   Bru Chat uses [Bun](https://bun.sh/) (or `npm`) for package management. Install dependencies by running:
 
-   ```
+   ```bash
    bun install
    ```
 
-   If you face any issues with Bun, you can use `npm` instead.
-
 4. **Start the development server**
 
-   To run the extension in development mode, use the following command:
+   To run the extension in development mode with hot reloading:
 
+   ```bash
+   bun run dev
    ```
-   bun dev
-   ```
 
-   This will open a  chrome browser window with the extension loaded.
+   This will open a Chromium browser window with the extension automatically loaded.
 
-   for firefox:
+   For Firefox:
 
-   ```
-   bun dev:firefox
+   ```bash
+   bun run dev:firefox
    ```
 
 5. **Install Ollama locally**
 
-   Page Assist requires [Ollama](https://ollama.ai) to be installed locally. Follow the installation instructions provided in the Ollama repository.
+   Bru Chat connects to [Ollama](https://ollama.com) or LM Studio locally. Make sure you have Ollama running with CORS enabled:
+   ```bash
+   export OLLAMA_ORIGINS="*"
+   ollama serve
+   ```
 
 ## Making Changes
 

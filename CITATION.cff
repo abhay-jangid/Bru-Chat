@@ -1,18 +1,24 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
-title: "Page Assist"
-abstract: "Use your locally running AI models to assist you in your web browsing."
+title: "Bru Chat"
+abstract: "Free, local-first AI web companion with token-saving page extractor and multi-model support."
 type: software
 authors:
-  - given-names: Muhammed Nazeem
+  - given-names: Abhay
+    family-names: Jangid
+    alias: abhay-jangid
+  - given-names: Muhammed
+    family-names: Nazeem
     alias: n4ze3m
 repository-code: "https://github.com/abhay-jangid/bru-chat"
 url: "https://github.com/abhay-jangid/bru-chat"
-license: MIT
-version: 1.5.86
+license: GPL-3.0
+version: 1.0.0
 keywords:
   - browser-extension
   - ollama
   - local-llm
   - ai
   - sidebar
+  - deepseek-r1
+  - privacy

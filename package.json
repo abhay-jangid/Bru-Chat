@@ -7,12 +7,15 @@
     "type": "git",
     "url": "https://github.com/abhay-jangid/bru-chat.git"
   },
-  "author": "n4ze3m",
+  "author": "Abhay Jangid (https://github.com/abhay-jangid)",
+  "contributors": [
+    "Muhammed Nazeem (https://github.com/n4ze3m)"
+  ],
   "scripts": {
     "dev": "cross-env TARGET=chrome wxt",
     "dev:firefox": "cross-env TARGET=firefox wxt -b firefox",
     "dev:edge": "cross-env TARGET=chrome wxt -b edge",
-    "build": "bun build:chrome; bun build:firefox; bun build:edge",
+    "build": "bun run build:chrome && bun run build:firefox && bun run build:edge",
     "build:chrome": "cross-env TARGET=chrome wxt build",
     "build:firefox": "cross-env TARGET=firefox wxt build -b firefox",
     "build:edge": "cross-env TARGET=chrome wxt build -b edge",

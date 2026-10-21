@@ -10,20 +10,21 @@
 
 ---
 
+[![Download Bru Chat](https://img.shields.io/badge/Download-Pre--Built%20Extension%20(.ZIP)-10b981?style=for-the-badge&logo=googlechrome&logoColor=white)](https://github.com/abhay-jangid/bru-chat/releases)
 [![100% Local Privacy](https://img.shields.io/badge/Privacy-100%25%20Local-success?style=for-the-badge&logo=shield&logoColor=white)](PRIVACY.md)
 [![Zero Telemetry](https://img.shields.io/badge/Telemetry-Zero%20Tracking-0284c7?style=for-the-badge&logo=eye-slash&logoColor=white)](PRIVACY.md)
 [![GPL-3.0 License](https://img.shields.io/badge/License-GPL--3.0-f97316?style=for-the-badge&logo=gnu)](LICENCE)
-[![100% Free & Open](https://img.shields.io/badge/Cost-100%25%20Free%20%26%20Open-10b981?style=for-the-badge&logo=open-source-initiative&logoColor=white)](#license)
 [![Powered by Ollama](https://img.shields.io/badge/Inference-Ollama%20%7C%20LM%20Studio-8b5cf6?style=for-the-badge&logo=terminal&logoColor=white)](https://ollama.com)
 
 <p align="center">
+  <a href="#installation">Installation</a> •
+  <a href="#how-to-use">How to Use</a> •
   <a href="#features">Features</a> •
   <a href="#comparison">Why Bru Chat?</a> •
-  <a href="#quickstart">Quickstart Guide</a> •
   <a href="#lm-studio">LM Studio</a> •
   <a href="#shortcuts">Shortcuts</a> •
+  <a href="#troubleshooting">Troubleshooting</a> •
   <a href="#development">Development</a> •
-  <a href="#privacy">Privacy</a> •
   <a href="#attribution">Attribution & License</a>
 </p>
 
@@ -32,7 +33,154 @@
 ---
 
 > [!TIP]
-> **Why Bru Chat?** Most browser AI assistants route your tabs, keystrokes, and documents through paid cloud APIs. **Bru Chat runs entirely on your hardware.** Pair it with Ollama or LM Studio to get a lightning-fast, private copilot in Chrome, Brave, Edge, and Firefox without paying a cent.
+> **Why Bru Chat?** Most browser AI assistants route your tabs, keystrokes, and documents through paid cloud APIs. **Bru Chat runs entirely on your machine.** Pair it with Ollama or LM Studio to get a lightning-fast, private copilot in Chrome, Brave, Edge, and Firefox without paying a cent.
+
+---
+
+<a id="installation"></a>
+## 🚀 Quick Installation
+
+You can install Bru Chat in two ways:
+
+```text
+┌────────────────────────────────────────────────────────┐
+│  Choose your installation method:                      │
+│                                                        │
+│  ⭐ Method 1: Pre-built ZIP (Easiest — No code needed)  │
+│  🛠️ Method 2: Build from Source (For Developers)        │
+└────────────────────────────────────────────────────────┘
+```
+
+### ⭐ Method 1: The Easiest Way (Non-Developers — 1 Minute)
+*No coding, Bun, or Node.js required!*
+
+1. **Download the Extension:**
+   - Go to [**GitHub Releases**](https://github.com/abhay-jangid/bru-chat/releases).
+   - Download the latest **`bru-chat-chrome-mv3.zip`** (or `bru-chat-firefox-mv2.zip` for Firefox).
+2. **Extract the ZIP:**
+   - Right-click the downloaded `.zip` file and choose **Extract All...** to an easy-to-find folder (e.g. `Downloads/bru-chat-chrome-mv3` or `Documents`).
+3. **Load into your Browser (Chrome, Brave, Edge, Opera, Vivaldi):**
+   - Open your browser and navigate to `chrome://extensions` (or `edge://extensions` / `brave://extensions`).
+   - Turn **ON** the **Developer mode** toggle in the top-right corner.
+   - Click the **Load unpacked** button in the top-left corner.
+   - Select the extracted `bru-chat-chrome-mv3` folder (the folder containing `manifest.json`).
+4. **Pin Extension:**
+   - Click the puzzle icon (🧩) in Chrome toolbar and click the pin (📌) next to **Bru Chat 🐾**.
+   - Done! You are ready to chat!
+
+> [!NOTE]
+> **Firefox Users:** Navigate to `about:debugging` → **This Firefox** → **Load Temporary Add-on** and select the `manifest.json` inside the extracted `bru-chat-firefox-mv2` folder.
+
+---
+
+### 🛠️ Method 2: Build from Source (For Developers)
+
+If you cloned this repository from GitHub, note that the compiled extension folder (`build/chrome-mv3`) is not committed to Git. You generate it with one command:
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/abhay-jangid/bru-chat.git
+   cd bru-chat
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   bun install
+   # or: npm install
+   ```
+
+3. **Build the extension:**
+   ```bash
+   bun run build:chrome
+   # or: npm run build:chrome
+   ```
+   *This will compile the TypeScript & React files and generate the **`build/chrome-mv3`** directory!*
+
+4. **Load into Chrome:**
+   - Open `chrome://extensions`, enable **Developer mode**, click **Load unpacked**, and select `build/chrome-mv3`.
+
+---
+
+<a id="how-to-use"></a>
+## 📖 How to Use Bru Chat
+
+Get the most out of Bru Chat in 4 simple steps:
+
+```text
+┌─────────────────┐       ┌────────────────────┐       ┌─────────────────┐
+│  1. Run Ollama  │ ────> │ 2. Open Side Panel │ ────> │  3. Chat & Surf │
+│ localhost:11434 │       │    Ctrl+Shift+Y    │       │ Token-Saving AI │
+└─────────────────┘       └────────────────────┘       └─────────────────┘
+```
+
+### Step 1: Set Up Your Local AI Engine (Ollama)
+
+1. Download and install [Ollama](https://ollama.com/) (available for Windows, macOS, and Linux).
+2. Open your terminal or PowerShell and pull your preferred model:
+   ```bash
+   # Recommended daily driver (fast, accurate, multi-language)
+   ollama run qwen2.5:7b
+
+   # Lightweight model (best for laptops & battery life)
+   ollama run llama3.2:3b
+
+   # Deep reasoning model (renders step-by-step <think> chains)
+   ollama run deepseek-r1:7b
+
+   # Uncensored model (zero guardrails / unfiltered answers)
+   ollama run dolphin-llama3:8b
+   ```
+
+3. **CRITICAL: Allow Browser Extension Access (CORS)**  
+   *Chrome extensions cannot communicate with Ollama unless CORS is enabled:*
+
+   - **Windows (PowerShell):**
+     ```powershell
+     [System.Environment]::SetEnvironmentVariable("OLLAMA_ORIGINS", "*", "User")
+     ```
+     > [!IMPORTANT]
+     > After running the PowerShell command, **right-click the Ollama icon in your Windows Taskbar tray, click "Quit Ollama", and restart Ollama from your Start Menu**.
+
+   - **macOS / Linux:**
+     ```bash
+     export OLLAMA_ORIGINS="*"
+     ollama serve
+     ```
+
+---
+
+### Step 2: Open Bru Chat
+
+You can trigger Bru Chat anytime using your keyboard or toolbar:
+
+| Action | Shortcut (Windows/Linux) | Shortcut (macOS) | Description |
+| :--- | :--- | :--- | :--- |
+| **Side Panel** | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Y</kbd> | <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>Y</kbd> | Opens beside your active tab — ideal for side-by-side reading |
+| **Full Web UI** | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>L</kbd> | <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>L</kbd> | Opens a dedicated tab for long writing, coding, or managing docs |
+| **Toolbar Icon** | Click 🐾 in toolbar | Click 🐾 in toolbar | Quick-launch options |
+
+---
+
+### Step 3: Chat with Any Webpage
+
+1. Open any webpage, documentation, news article, or blog post.
+2. Open the **Bru Chat Side Panel** (<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Y</kbd>).
+3. Bru Chat will automatically extract the core text using its **Token-Saving Readability Parser** (stripping ads, cookie banners, navigation menus, and tracking scripts).
+4. Try asking:
+   - *"Summarize this article in 5 bullet points."*
+   - *"Explain this code snippet in plain English."*
+   - *"What are the author's primary arguments?"*
+   - *"Translate this text to Spanish/French/German."*
+
+---
+
+### Step 4: Toggle "Fast Mode" ⚡ vs "Deep Analysis" 🔬
+
+Use the quick toggle in the top bar of the chat:
+- ⚡ **Fast Mode**: Low temperature and concise responses for quick TL;DRs, facts, and rapid lookups.
+- 🔬 **Deep Analysis**: Deep context, detailed explanations, and full step-by-step chain of thought.
+
+When using **DeepSeek-R1**, Bru Chat automatically renders collapsible `<think>` blocks, allowing you to inspect the AI's internal reasoning steps before seeing its final conclusion.
 
 ---
 
@@ -56,11 +204,6 @@ Bru Chat is tuned to exploit the strengths of today’s finest open weights:
 - **True Algorithmic Freedom**: Seamless compatibility with uncensored community models such as **Dolphin-Llama3**, **Hermes**, and custom fine-tunes.
 - **No Arbitrary Refusals**: Analyze unfiltered security advisories, fiction, synthetic data, and creative prompts without corporate guardrails.
 
-### 🎛️ "Fast Mode" vs. "Deep Analysis" Quick Toggle
-- **Header Bar Quick Switch**: Toggle between generation profiles with a single click right from the top bar.
-  - ⚡ **Fast Mode**: Low temperature and concise sampling for instant summaries, TL;DRs, and fast page lookups.
-  - 🔬 **Deep Analysis**: High context depth, step-by-step chain of thought, and thorough deductive reasoning.
-
 ### 🛡️ Absolute Privacy Guarantee
 - **Air-Gapped Operation**: No background analytics, no telemetry pings, and no third-party data broker SDKs.
 - **Local Persistence via Dexie**: All chat logs, vector embeddings, and configurations are stored inside your browser's local **IndexedDB** database.
@@ -78,85 +221,6 @@ Bru Chat is tuned to exploit the strengths of today’s finest open weights:
 | **Reasoning Display** | 🧠 **Native `<think>` tag UI** | ⚠️ Proprietary / hidden |
 | **Model Freedom** | 🔓 **Ollama, LM Studio, Uncensored** | ❌ Locked to vendor models |
 | **Offline Capability** | ✅ **Works without Internet** | ❌ Requires continuous connection |
-
----
-
-<a id="quickstart"></a>
-## 🏁 Quickstart Guide
-
-Get up and running in **under 3 minutes**:
-
-```text
-┌─────────────────┐       ┌────────────────────┐       ┌─────────────────┐
-│  1. Run Ollama  │ ────> │  2. Load Extension │ ────> │  3. Chat & Surf │
-│ localhost:11434 │       │  build/chrome-mv3  │       │  Ctrl+Shift+Y   │
-└─────────────────┘       └────────────────────┘       └─────────────────┘
-```
-
-### Step 1: Install Ollama & Pull Models
-
-1. Download and install [Ollama](https://ollama.com/) for Windows, macOS, or Linux.
-2. Open your terminal or PowerShell and pull the recommended model weights:
-
-```bash
-# Recommended daily driver (Balanced, fast, sharp)
-ollama run qwen2.5:7b
-
-# Ultra-fast & lightweight (Best for laptops & battery life)
-ollama run llama3.2:3b
-
-# Deep reasoning model (Native <think> tag support)
-ollama run deepseek-r1:7b
-
-# Uncensored model (Zero guardrails / unrestricted assistance)
-ollama run dolphin-llama3:8b
-```
-
-3. **Configure Cross-Origin Resource Sharing (CORS)** so your browser extension can talk to Ollama:
-
-**Windows (PowerShell — run once, then restart Ollama from taskbar tray):**
-```powershell
-[System.Environment]::SetEnvironmentVariable("OLLAMA_ORIGINS", "*", "User")
-```
-
-**macOS / Linux:**
-```bash
-export OLLAMA_ORIGINS="*"
-ollama serve
-```
-
----
-
-### Step 2: Install the Bru Chat Extension
-
-1. Clone or download this repository:
-   ```bash
-   git clone https://github.com/abhay-jangid/bru-chat.git
-   ```
-2. Open your Chromium-based browser (Chrome, Brave, Edge, Opera, Vivaldi):
-   - Navigate to `chrome://extensions` (or `edge://extensions` / `brave://extensions`).
-3. Toggle on **Developer mode** in the top-right corner.
-4. Click **Load unpacked** and select the extension directory:
-   ```text
-   Bru Chat\build\chrome-mv3
-   ```
-5. Reload your browser or extension tab to complete installation.
-
-> [!NOTE]
-> Firefox users can load the unpacked extension from `Bru Chat/build/firefox-mv2` via `about:debugging` → **This Firefox** → **Load Temporary Add-on**.
-
----
-
-### Step 3: Launch and Chat!
-
-1. Open any webpage you want to explore or summarize.
-2. Launch Bru Chat:
-   - Click the **Bru Chat 🐾** icon in your browser toolbar, or
-   - Press the global hotkeys:
-     - <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Y</kbd> — Open the **Side Panel**
-     - <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>L</kbd> — Open the **Full Web UI**
-3. Bru Chat will **automatically detect your local Ollama instance** at `http://localhost:11434`.
-4. Ask questions, summarize the page, query specific sections, or brainstorm with zero latency!
 
 ---
 
@@ -185,6 +249,31 @@ Prefer using [LM Studio](https://lmstudio.ai/) with custom GGUF models? Bru Chat
 
 ---
 
+<a id="troubleshooting"></a>
+## ❓ Troubleshooting & FAQs
+
+### 1. "Failed to fetch" or "Cannot connect to Ollama (localhost:11434)"
+- **Cause**: Chrome extensions are blocked by Ollama's default cross-origin policy until CORS is enabled.
+- **Fix (Windows)**:
+  1. Open PowerShell and run:
+     ```powershell
+     [System.Environment]::SetEnvironmentVariable("OLLAMA_ORIGINS", "*", "User")
+     ```
+  2. Right-click the Ollama icon in your Windows Taskbar tray and choose **Quit Ollama**.
+  3. Re-open Ollama from your Start Menu.
+  4. Test by opening `http://localhost:11434` in your browser. You should see `"Ollama is running"`.
+
+### 2. "Why don't I see `build/chrome-mv3` when I clone from GitHub?"
+- **Cause**: The `build/` folder contains generated binary assets and is intentionally ignored by `.gitignore` to keep the repository lightweight.
+- **Fix**:
+  - If you just want to use the extension, download the pre-packaged zip from [**GitHub Releases**](https://github.com/abhay-jangid/bru-chat/releases).
+  - If you are developing, run `bun install && bun run build:chrome` to generate the `build/chrome-mv3` folder.
+
+### 3. "Can I use Bru Chat completely offline without internet?"
+- **Yes!** As long as you have already pulled your model weights into Ollama or LM Studio, Bru Chat operates 100% offline without requiring an internet connection.
+
+---
+
 <a id="shortcuts"></a>
 ## ⌨️ Keyboard Shortcuts
 
@@ -199,7 +288,7 @@ Prefer using [LM Studio](https://lmstudio.ai/) with custom GGUF models? Bru Chat
 <a id="development"></a>
 ## 🛠️ Development & Building
 
-Bru Chat is crafted with a modern, high-velocity frontend stack:
+Bru Chat is built with a modern, high-velocity frontend stack:
 
 <p align="left">
   <img src="https://img.shields.io/badge/WXT-Next--Gen%20Extension%20Framework-6366f1?style=flat-square" alt="WXT" />
@@ -210,7 +299,7 @@ Bru Chat is crafted with a modern, high-velocity frontend stack:
 </p>
 
 ### Prerequisites
-- [Bun](https://bun.sh/) (version 1.1 or higher)
+- [Bun](https://bun.sh/) (version 1.1 or higher) or Node.js v18+
 - Git
 
 ### Local Development Workflow
@@ -230,7 +319,7 @@ bun run dev:firefox
 bun run dev:edge
 ```
 
-### Production Build
+### Production Build & Packaging
 ```bash
 # Build production bundles for Chrome MV3, Firefox MV2, and Edge
 bun run build
@@ -271,7 +360,7 @@ Bru Chat is forked from the exceptional [Page Assist](https://github.com/n4ze3m/
 ### License
 In full compliance with open-source ethics and the **GNU General Public License v3.0 (GPL-3.0)**:
 - Original codebase © Muhammed Nazeem and contributors.
-- Bru Chat modifications and upgrades © Bru Chat contributors.
+- Bru Chat modifications and upgrades © Abhay Jangid and Bru Chat contributors.
 - Licensed under the **GNU General Public License v3.0**. You may freely study, modify, distribute, and enhance this software under the terms of GPL-3.0.
 
 See the full license text in the [LICENCE](LICENCE) file.

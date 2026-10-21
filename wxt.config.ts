@@ -62,12 +62,12 @@ export default defineConfig({
         : "__MSG_extDescription__",
     default_locale: "en",
     action: {},
-    author: "n4ze3m",
+    author: "Abhay Jangid",
     browser_specific_settings:
       process.env.TARGET === "firefox"
         ? {
           gecko: {
-            id: "page-assist@nazeem"
+            id: "bru-chat@abhay"
           }
         }
         : undefined,
